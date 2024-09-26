@@ -188,9 +188,35 @@
 </p>
 <p style="text-align: justify;">
     For a sufficiently large \(t\) (say, 1000), the first term \(\sqrt{1 - \beta}^t \sim 0\)  as \(0 &lt; 1 - \beta &lt; 1\). The rest of the expression is sum of a GP that can be written as:
-    $$\beta\frac{1 - (1 - \beta)^t}{1 - (1 - \beta)} \sim \frac{\beta}{\beta} = 1$$ \\
-    \vspace{2.5mm}
+    $$\beta\frac{1 - (1 - \beta)^t}{1 - (1 - \beta)} \sim \frac{\beta}{\beta} = 1$$
     $$\therefore\quad\mathbf{x}_t = 0.\mathbf{x}_0 + 1.\mathcal{N}(0, \mathbf{I})$$
+    This shows that the repeated use of the transition function will indeed lead to a zero mean and unit variance (isotropic) Gaussian distribution.
+</p>
+<p style="text-align: justify;">
+    An important property of this recursive formulation is that it also allows the direct sampling of \(\mathbf{x}_t\), when \(t\) is drawn from a uniform
+    distribution, i.e., \(\forall t \sim \mathcal{U}(\{1, \dots, T\})\):
+    $$q(\mathbf{x}_t \vert \mathbf{x}_0) = \mathcal{N}(\mathbf{x}_t; \sqrt{\bar{\alpha}_t} \mathbf{x}_0, (1 - \bar{\alpha}_t)\mathbf{I})$$
+    ;where \(\alpha_t = 1 - \beta_t\) and \(\bar{\alpha}_t = \prod_{i=1}^t \alpha_i\).
+    In essence, this equation demonstrates that we can obtain any noisy version \(\mathbf{x}_t\) through a single step, provided we have the original image \(\mathbf{x}_0\) and establish a fixed variance schedule \(\beta_t\).
+</p>
+<p style="text-align: justify;">
+    Mathematically, let us examine how any noisy version of the image can be directly obtained from the original image.
+    $$
+    \begin{aligned}
+        \mathbf{x}_t &= \sqrt{1 - \beta}\mathbf{x}_{t - 1} + \sqrt{\beta}\mathcal{N}(0, \mathbf{I}) \\
+        &= \sqrt{\alpha_t}\mathbf{x}_{t - 1} + \sqrt{1 - \alpha_t}\epsilon_t \quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad ;\text{where }\epsilon_t, \epsilon_{t - 1}, \dots \sim \mathcal{N}(0, \mathbf{I}) \\
+        &= \sqrt{\alpha_t}(\sqrt{\alpha_{t - 1}}\mathbf{x}_{t - 2} + \sqrt{1 - \alpha_{t - 1}}\epsilon_{t - 1}) + \sqrt{1 - \alpha_t}\epsilon_t \\
+        &= \sqrt{\alpha_t}\sqrt{\alpha_{t - 1}}\mathbf{x}_{t - 2} + \sqrt{\alpha_t}\sqrt{1 - \alpha_{t - 1}}\epsilon_{t - 1} + \sqrt{1 - \alpha_t}\epsilon_t \\
+        &= \sqrt{\alpha_t\alpha_{t - 1}}\mathbf{x}_{t - 2} + \sqrt{1 - \alpha_t + \alpha_t - \alpha_t\alpha_{t - 1}}\epsilon \quad\quad\text{   ;where } \epsilon \text{ merges two Gaussians (*)}\\ 
+        &= \sqrt{\alpha_t\alpha_{t - 1}}\mathbf{x}_{t - 2} + \sqrt{1 - \alpha_t\alpha_{t - 1}}\epsilon \\
+        &= \sqrt{\alpha_t\alpha_{t - 1}}(\sqrt{\alpha_{t - 2}}\mathbf{x}_{t - 3} + \sqrt{1 - \alpha_{t - 2}}\epsilon_{t - 2}) + \sqrt{1 - \alpha_t\alpha_{t - 1}}\epsilon \\
+        &= \sqrt{\alpha_t\alpha_{t - 1}\alpha_{t - 2}}\mathbf{x}_{t - 3} + \sqrt{\alpha_t\alpha_{t - 1}}\sqrt{1 - \alpha_{t - 2}}\epsilon_{t - 2} + \sqrt{1 - \alpha_t\alpha_{t - 1}}\epsilon \\
+        &= \sqrt{\alpha_t\alpha_{t - 1}\alpha_{t - 2}}\mathbf{x}_{t - 3} + \sqrt{1 - \alpha_t\alpha_{t - 1}\alpha_{t - 2}}\epsilon \\
+        &= \dots \\
+        &= \sqrt{\alpha_t\alpha_{t - 1}\alpha_{t - 2}\dots\alpha_2\alpha_1}\mathbf{x}_0 + \sqrt{1 - \alpha_t\alpha_{t - 1}\alpha_{t - 2}\dots\alpha_2\alpha_1}\epsilon \\
+        &= \sqrt{\bar{\alpha}_t}\textbf{x}_0 + \sqrt{1 - \bar{\alpha}_t}\epsilon
+    \end{aligned}
+    $$
 </p>
 </div>
 
