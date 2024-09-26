@@ -233,7 +233,49 @@
 </div>
 
 <div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-<p><strong></strong></p>
+<p><strong>Reverse Diffusion Process</strong></p>
+<p style="text-align: justify;">
+    By leveraging the above properties, we can generate new samples from \(q(\mathbf{x}_0)\) if we start from a sample \(\mathbf{x}_t \sim \mathcal{N}(0, \mathbf{I})\) and follow the reverse steps \(q(\mathbf{x}_{t - 1}\vert\mathbf{x}_t) = \mathcal{N}(x_{t - 1}, \mu(x_t, t), \Sigma(x_t, t))\). 
+    The reverse process is likewise a diffusion process, featuring transitions that adhere to the same functional form. This implies that our reverse process, which effectively generates data from random noise, also follows a Markov chain with Gaussian transition probability. However, computing it directly would necessitate calculations involving the entire data distribution, which is impractical. 
+    Instead, we resort to approximations to address this challenge. To approximate these steps, we can train a neural network, \(p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t) = \mathcal{N}(x_{t - 1}, \mu_\theta(x_t, t), \Sigma_\theta(x_t, t))\) that receives as input the noisy image \(x_t\) and the embedding at time step \(t\)  and learns to predict
+    the mean \(\mu_\theta(x_t, t)\) and the covariance \(\Sigma_\theta(x_t, t)\).
+</p>
+<p style="text-align: justify;">
+    In an ideal scenario, we would train the neural network with a maximum likelihood objective such that the probability assigned by the model \(p_\theta(x_0)\) to 
+    each training example \(x_0\) is as large as possible. However, \(p_\theta(x_0)\) is intractable because we have to marginalize over all 
+    the possible reverse trajectories to compute it. The solution to this problem is to minimize a variational lower-bound of the negative 
+    log-likelihood instead, which has the following formulation:
+    $$
+    \begin{aligned}
+       \mathcal{L}_{vlb} = -log\text{ }p_\theta(x_0\vert x_1) + \text{KL}(q(x_T\vert x_0)\Vert p(x_T)) + \sum_{t=2}^{T}\text{KL}(q(x_{t-1}\vert x_t, x_0)\Vert p_\theta(x_{t-1}\vert x_t))
+    \end{aligned}
+    $$
+    where \(KL\) denotes the Kullback-Leibler divergence between two probability distributions.
+</p>
+<p style="text-align: justify;">
+    Instead of \(q(\mathbf{x}_{t - 1} \vert \mathbf{x}_t)\), we have an additional conditioning on \(\mathbf{x}_0\) i.e., \(q(\mathbf{x}_{t - 1} \vert \mathbf{x}_t, \mathbf{x}_0)\). 
+    Intuitively, this is a more manageable task because once you observe the original image, you can develop an understanding of how to proceed with denoising, transitioning from one 
+    time step to the previous one. The last term shows that the neural network is trained such that, at each time step \(t\), \(p_\theta(x_{t-1}\vert x_t)\) 
+    is as close as possible to the true posterior of the forward process when conditioned on the original image. Moreover, the posterior \(q(\mathbf{x}_{t-1}\vert \mathbf{x}_t, \mathbf{x}_0)\) is 
+    a Gaussian distribution which has been proven later. But before that, let us see how we arrive at \(\mathcal{L}_{vlb}\).
+</p>
+<p style="text-align: justify;">
+    First, let us write down the lower bound we see in a VAE below:
+    $$
+    \begin{aligned}
+        - log(p_\theta(\mathbf{x}_0)) \leq - log(p_\theta(\mathbf{x}_0)) + D_{KL}(q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)\Vert p_\theta(\mathbf{x}_{1:T}\vert \mathbf{x}_0))
+    \end{aligned}
+    $$
+    $$
+    \begin{aligned}
+        D_{KL}(q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)\Vert p_\theta(\mathbf{x}_{1:T}\vert \mathbf{x}_0)) &= log \frac{q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_{1:T}\vert \mathbf{x}_0)} \\
+        &= log \frac{q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)}{\frac{p_\theta(\mathbf{x}_0\vert\mathbf{x}_{1:T})p_\theta(\mathbf{x}_{1:T})}{p_\theta(\mathbf{x}_0)}} \\ 
+        &= log \frac{q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)}{\frac{p_\theta(\mathbf{x}_0, \mathbf{x}_{1:T})}{p_\theta(\mathbf{x}_0)}} \\
+        &= log \frac{q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)}{\frac{p_\theta(\mathbf{x}_{0:T})}{p_\theta(\mathbf{x}_0)}} \\
+        &= log \frac{q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_{0:T})} + log (p_\theta(\mathbf{x}_0))
+    \end{aligned}
+    $$
+</p>
 </div>
 
 <div id="bibtex_display">
