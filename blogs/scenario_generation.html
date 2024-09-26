@@ -150,7 +150,7 @@
 <div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
 <strong style="font-size: x-large;">Denoising Diffusion Probabilistic Model (DDPM)</strong>
 <p><strong>Forward Diffusion Process</strong></p>
-<p>
+<p style="text-align: justify;">
     DDPM's <strong style="color: blue;">[22, 23]</strong> slowly corrupt the training data using Gaussian noise . 
     Let \(q(\mathbf{x_0})\) be the data density, where the index 0 denotes the fact that the data is uncorrupted (original). Given an 
     uncorrupted training sample \(\mathbf{x}_0 \sim q(\mathbf{x}_0)\), the noised versions \(\mathbf{x_1, x_2, \dots, x_T}\) are obtained 
@@ -161,18 +161,18 @@
     where \(T\) is the number of diffusion steps, \(\beta_1, \dots, \beta_T \in &#91;0, 1&#41;\) are hyperparameters representing the variance schedule across diffusion steps, \( \mathbf{I} \) is the identity matrix having the same dimensions
     as the input image \(\mathbf{x}_0\), and \(\mathcal{N}(\mathbf{x}; \mu, \sigma)\) represents the normal distribution of mean \(\mu\) and covariance \(\sigma\) that produces \(\mathbf{x}\).
 </p>
-<p>
+<p style="text-align: justify;">
     <figure style="text-align: center;">
         <img src="forward_process.png" alt="Diffusion Forward Process" width=70% height="auto">
             <figcaption><strong>Figure 2.</strong> Change in data distribution in the forward diffusion process</figcaption>
     </figure>
 </p>
-<p>
+<p style="text-align: justify;">
     The primary emphasis of the forward diffusion process, which involves transitioning from the original 
     image distribution to an isotropic Gaussian distribution, is on the following transition function:
     $$\mathbf{x}_t = \sqrt{1 - \beta}\mathbf{x}_{t - 1} + \sqrt{\beta}\mathcal{N}(0, \mathbf{I})$$
 </p>
-<p>
+<p style="text-align: justify;">
     The repeated application of this transition function somehow transforms an image sampled from a highly complex distribution into a sample from a normal distribution. 
     It is imperative to understand how this repeated utilization of the transition function accomplishes this outcome.
     $$
@@ -185,6 +185,12 @@
         &= \underbrace{\sqrt{1 - \beta}^t\mathbf{x}_0}_\text{$\sim 0$} + \dots + \underbrace{\sqrt{1 - \beta}\sqrt{1 - \beta}\sqrt{\beta}\mathcal{N}(0, \mathbf{I})}_\text{$var = \beta(1 - \beta)(1 -\beta)$} + \underbrace{\sqrt{1 - \beta}\sqrt{\beta}\mathcal{N}(0, \mathbf{I})}_\text{$var = \beta(1 - \beta)$} + \underbrace{\sqrt{\beta}\mathcal{N}(0, \mathbf{I})}_\text{$var = \beta$}
     \end{aligned}
     $$
+</p>
+<p style="text-align: justify;">
+    For a sufficiently large \(t\) (say, 1000), the first term \(\sqrt{1 - \beta}^t \sim 0\)  as \(0 &lt; 1 - \beta &lt; 1\). The rest of the expression is sum of a GP that can be written as:
+    $$\beta\frac{1 - (1 - \beta)^t}{1 - (1 - \beta)} \sim \frac{\beta}{\beta} = 1$$ \\
+    \vspace{2.5mm}
+    $$\therefore\quad\mathbf{x}_t = 0.\mathbf{x}_0 + 1.\mathcal{N}(0, \mathbf{I})$$
 </p>
 </div>
 
