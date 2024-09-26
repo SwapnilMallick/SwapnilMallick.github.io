@@ -306,6 +306,40 @@
     \end{aligned}
     $$
 </p>
+<p style="text-align: justify;">
+    We can entirely disregard the second term because $q$ lacks any trainable parameters; it merely represents a forward process that continuously 
+    introduces noise. Additionally, \(p(\mathbf{x}_T)\) comprises random noise samples from our Gaussian distribution. Moreover, based on the theory 
+    mentioned earlier, which asserts that \(q\) will converge to a normal distribution, we can confidently anticipate that the KL divergence will 
+    be minimal. Now, let us turn our attention to the other KL divergence term. As discussed earlier, \(p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)\) 
+    can be expressed as \(\mathcal{N}(x_{t - 1}, \mu_\theta(x_t, t), \Sigma_\theta(x_t, t))\). Ho et al. <strong style="color: blue;">[33]</strong> 
+    proposes to fix the variance schedule to a constant value. Therefore, \(p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)\) becomes \(\mathcal{N}(x_{t - 1}, \mu_\theta(x_t, t), \beta\mathbf{I})\).
+</p>
+<p style="text-align: justify;">
+    Now, we demonstrate that the posterior \(q(\mathbf{x}_{t-1}\vert \mathbf{x}_t, \mathbf{x}_0)\) is a Gaussian distribution, implying
+    closed-form expressions for the KL divergences. Using Bayes’ rule, we have:
+    $$
+    \begin{aligned}
+        q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0) &= \frac{q(\mathbf{x}_{t}\vert \mathbf{x}_{t - 1}, \mathbf{x}_0)q(\mathbf{x}_{t - 1}\vert \mathbf{x}_0)}{q(\mathbf{x}_t\vert \mathbf{x}_0)}
+    \end{aligned}
+    $$
+    ; where \(q(\mathbf{x}_{t}\vert \mathbf{x}_{t - 1}, \mathbf{x}_0)\) is our forward process and although it is conditioned on \(\mathbf{x}_0\) it is going to have no impact because our forward process is a Markov Chain. 
+    The other two terms can be written using the recursion that we established earlier which allows us to go from \(\mathbf{x}_0\) to a noisy image 
+    at any time step \(t\).
+    $$
+    \begin{aligned}
+        \therefore q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0) &= \frac{\mathcal{N}(\mathbf{x}_t; \sqrt{\alpha_t}\mathbf{x}_{t - 1}, (1 - \alpha_t)\mathbf{I}).\mathcal{N}(\mathbf{x}_{t - 1}; \sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0, (1 - \bar{\alpha}_{t - 1})\mathbf{I})}{\mathcal{N}(\mathbf{x}_t; \sqrt{\bar{\alpha}_t}\mathbf{x}_0, (1 - \bar{\alpha}_{t - 1})\mathbf{I})} \\
+        &\propto \exp \frac{-1}{2} \left[\frac{(\mathbf{x}_t - \sqrt{\alpha}_t\mathbf{x}_{t - 1})^2}{1 - \alpha_t} + \frac{(\mathbf{x}_{t - 1} - \sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0)^2}{1 - \bar{\alpha}_{t - 1}} + \frac{(\textbf{x}_t - \sqrt{\bar{\alpha}_t}\mathbf{x}_0)^2}{1 - \bar{\alpha_t}}\right] \\
+        &\propto \exp \frac{-1}{2} \left[\mathbf{x}^2_{t - 1}(\frac{\alpha_t}{1 - \alpha_t} + \frac{1}{1 - \bar{\alpha}_{t - 1}}) - 2\mathbf{x}_{t - 1}(\frac{\sqrt{\alpha}_t\mathbf{x}_t}{1 - \alpha_t} + \frac{\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{1 - \bar{\alpha}_{t - 1}}) + C(\mathbf{x}_t, \mathbf{x}_0)\right] \\ 
+        &\text{\quad;where } C(\mathbf{x}_t, \mathbf{x}_0) \text{ is some function not involving } \mathbf{x}_{t - 1}. \\
+        \implies q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0)&\propto \exp \frac{-1}{2} \biggl[\mathbf{x}^2_{t - 1}(\frac{\alpha_t - \bar{\alpha}_t + 1 - \alpha_t}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}) - 2\mathbf{x}_{t - 1}(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}) \\
+        &\quad\quad\quad+ C(\mathbf{x}_t, \mathbf{x}_0)\biggr] \\
+        &\propto \exp \frac{-1}{2} \biggl[\mathbf{x}^2_{t - 1}(\frac{1 - \bar{\alpha}_t}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}) - 2\mathbf{x}_{t - 1}(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}) \\
+        &\quad\quad\quad+ C(\mathbf{x}_t, \mathbf{x}_0)\biggr] \\
+        \implies q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0)&\propto \exp \frac{-1}{2}\Biggl[\frac{1 - \bar{\alpha}_t}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}\biggl\{\mathbf{x}^2_{t - 1} - 2\mathbf{x}_{t - 1}(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \bar{\alpha}_t)}) \\
+        &\quad\quad\quad+ \frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}C(\mathbf{x}_t, \mathbf{x}_0)\biggr\} \Biggr]
+    \end{aligned}
+    $$
+</p>
 </div>
 
 <div id="bibtex_display">
