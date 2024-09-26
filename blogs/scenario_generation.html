@@ -158,7 +158,7 @@
     $$
     q(\mathbf{x}_t \vert \mathbf{x}_{t-1}) = \mathcal{N}(\mathbf{x}_t; \sqrt{1 - \beta_t} \mathbf{x}_{t-1}, \beta_t\mathbf{I}) \quad, \forall t \in \{1, 2, \dots, T\}
     $$
-    where \(T\) is the number of diffusion steps, \(\beta_1, \dots, \beta_T \in [0, 1) are hyperparameters representing the variance schedule across diffusion steps, \(mathbf{I}\) is the identity matrix having the same dimensions
+    where \(T\) is the number of diffusion steps, \(\beta_1, \dots, \beta_T \in &#91;0, 1&#41;\) are hyperparameters representing the variance schedule across diffusion steps, \(mathbf{I}\) is the identity matrix having the same dimensions
     as the input image \(\mathbf{x}_0\), and \(\mathcal{N}(\mathbf{x}; \mu, \sigma)\) represents the normal distribution of mean \(\mu\) and covariance \(\sigma\) that produces \(\mathbf{x}\).
 </p>
 <p>
