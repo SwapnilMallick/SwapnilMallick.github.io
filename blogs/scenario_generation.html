@@ -370,7 +370,7 @@ $$
         $$
         \begin{aligned}
             \therefore q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0) &= \mathcal{N}\Bigg(\mathbf{x}_{t - 1};\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{1 - \bar{\alpha}_t}, \frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha_t}}\mathbf{I}\Bigg) \\
-            &= \mathcal{N}(\mathbf{x}_{t - 1}; \Tilde{\mu}_t(\mathbf{x}_t, \mathbf{x}_0), \Tilde{\beta}_t\mathbf{I})
+            &= \mathcal{N}(\mathbf{x}_{t - 1}; \tilde{\mu}_t(\mathbf{x}_t, \mathbf{x}_0), \tilde{\beta}_t\mathbf{I})
         \end{aligned}
         $$
 </p>
@@ -382,7 +382,7 @@ $$
         \implies \mathbf{x}_0 &= \frac{1}{\sqrt{\bar{\alpha}_t}}(\mathbf{x}_t - \sqrt{1 - \bar{\alpha}_t}\epsilon)
     \end{aligned}
     $$
-    By replacing \(\mathbf{x}_0\) with \(\frac{1}{\sqrt{\bar{\alpha}_t}}(\mathbf{x}_t - \sqrt{1 - \bar{\alpha}_t}\epsilon)\) in \(\Tilde{\mu}_t(\mathbf{x}_t, \mathbf{x}_0)\), we can simplify it as,
+    By replacing \(\mathbf{x}_0\) with \(\frac{1}{\sqrt{\bar{\alpha}_t}}(\mathbf{x}_t - \sqrt{1 - \bar{\alpha}_t}\epsilon)\) in \(\tilde{\mu}_t(\mathbf{x}_t, \mathbf{x}_0)\), we can simplify it as,
     $$
     \begin{aligned}
         \tilde{\mu}_t(\mathbf{x}_t, \mathbf{x}_0) &= \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}\mathbf{x}_t + \frac{(1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}}{1 - \bar{\alpha_t}}\mathbf{x}_0 \\
