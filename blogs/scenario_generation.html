@@ -397,6 +397,26 @@ $$
         &= \frac{1}{\sqrt{\alpha_t}}\bigg(\mathbf{x}_t - \frac{\beta_t}{\sqrt{(1 - \bar{\alpha}_t)}}\epsilon \bigg) 
         \end{aligned}
     $$
+    This shows that we are only subtracting random scaled noise from \(\mathbf{x}_t\). The authors decided to use a simple 
+    Mean Squared Error between \(\tilde{\mu}_t\) and \({\mu}_\theta\) that can be written as,
+    $$
+    \begin{aligned}
+        L_t &= \frac{1}{2\sigma^2_t}\Vert\tilde{\mu}_t(\mathbf{x}_t, \mathbf{x}_0) - {\mu}_\theta(\mathbf{x}_t, t))\Vert^2 \\
+        &= \frac{1}{2\sigma^2_t}\bigg\Vert\frac{1}{\sqrt{\alpha_t}}\bigg(\mathbf{x}_t - \frac{\beta_t}{\sqrt{(1 - \bar{\alpha}_t)}}\epsilon \bigg) - \frac{1}{\sqrt{\alpha_t}}\bigg(\mathbf{x}_t - \frac{\beta_t}{\sqrt{(1 - \bar{\alpha}_t)}}\epsilon_\theta(\mathbf{x}_t, t) \bigg) \bigg\Vert^2 \\
+        &= \frac{1}{2\sigma^2_t}\bigg\Vert \frac{\mathbf{x}_t}{\sqrt{\alpha}_t} - \frac{\beta_t}{\sqrt{\alpha}_t\sqrt{(1 - \bar{\alpha}_t)}}\epsilon - \frac{\mathbf{x}_t}{\sqrt{\alpha}_t} - \frac{\beta_t}{\sqrt{\alpha}_t\sqrt{(1 - \bar{\alpha}_t)}}\epsilon_\theta(\mathbf{x}_t, t) \bigg\Vert^2 \\
+        &= \frac{\beta^2_t}{2\sigma^2_t{\alpha}_t{(1 - \bar{\alpha}_t)}}\Vert\epsilon - \epsilon_\theta(\mathbf{x}_t, t)\Vert^2 \\
+    \end{aligned}
+    $$
+    This shows that the generative process is still defined by \(p_\theta(\mathbf{x}_{t - 1}|\mathbf{x}_t)\), but the neural network does 
+    not predict the mean and the variance directly. Instead, it is trained to predict the noise from the image. 
+</p>
+<p style="text-align: justify;">
+    According to Ho et al. <strong style="color: blue;">[33]</strong>, the diffusion model works better when we remove the scaling term \(\frac{\beta^2_t}{2\sigma^2_t{\alpha}_t{(1 - \bar{\alpha}_t)}}\). 
+    Hence we can rewrite the training loss term \(L_t\) as,
+    $\begin{aligned}
+        L_t &= \Vert\epsilon - \epsilon_\theta(\mathbf{x}_t, t)\Vert^2
+    \end{aligned}
+    $
 </p>
 </div>
 
