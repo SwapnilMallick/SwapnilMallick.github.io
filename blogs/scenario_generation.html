@@ -18,97 +18,97 @@
 <strong style="font-size: x-large;">Introduction</strong></p>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
     Advancements in machine learning-driven sensing and decision-making algorithms have propelled significant progress in autonomous driving systems 
-    over recent years \cite{ding2023survey}. Significant strides have been made since the inception of the first autonomous vehicle. The initial 
-    successful test of an automated, radio-operated vehicle occurred in the USA on August 5th, 1921 \cite{kroger2016automated}. Subsequently,
+    over recent years <strong style="color: blue;">[69]</strong>. Significant strides have been made since the inception of the first autonomous vehicle. The initial 
+    successful test of an automated, radio-operated vehicle occurred in the USA on August 5th, 1921 <strong style="color: blue;">[24]</strong>. Subsequently,
      in 1953, Radio Corporation of America (RCA) Laboratories achieved a breakthrough by creating a miniature vehicle navigated and controlled 
-     via wires \cite{mccready_report}. The advancement of Autonomous Driving experienced a significant leap forward in the 1980s, attributable 
+     via wires <strong style="color: blue;">[70]</strong>. The advancement of Autonomous Driving experienced a significant leap forward in the 1980s, attributable 
      to the evolution of computer technology. In 1983, the US Defence Advanced Research Projects Agency (DARPA) initiated the Autonomous Land
       Vehicle (ALV) program in collaboration with institutions like Carnegie Mellon University (CMU), Stanford University, and others 
-      \cite{gage1995ugv}. This marked the first integration of LiDAR \cite{schwarz2010mapping}, computer vision \cite{janai2020computer}, 
-      and automated control methods \cite{kuutti2020survey} for Autonomous Driving. By 1989, CMU had pioneered the application of neural networks 
-      to steer Intelligent Vehicles, establishing a cornerstone for intelligent control methodologies \cite{pomerleau1988alvinn}.
+      <strong style="color: blue;">[4]</strong>. This marked the first integration of LiDAR <strong style="color: blue;">[12]</strong>, computer vision <strong style="color: blue;">[34]</strong>, 
+      and automated control methods <strong style="color: blue;">[35]</strong> for Autonomous Driving. By 1989, CMU had pioneered the application of neural networks 
+      to steer Intelligent Vehicles, establishing a cornerstone for intelligent control methodologies <strong style="color: blue;">[3]</strong>.
 </p>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
     To foster technology advancements in self-driving cars, the Defense Advanced Research Projects Agency (DARPA) orchestrated three competitions 
     over the last decade. The inaugural event, known as the DARPA Grand Challenge, took place in the Mojave Desert, USA, in 2004 
-    \cite{badue2021self}. Participants were tasked with creating self-driving cars capable of traversing a 142-mile course along desert 
+    <strong style="color: blue;">[44]</strong>. Participants were tasked with creating self-driving cars capable of traversing a 142-mile course along desert 
     trails within a 10-hour timeframe. However, all vehicles competing in the challenge failed within the initial few miles. No vehicle managed 
-    to complete the course, with the highest-scoring one covering only 7.5 miles, resulting in the prize remaining unclaimed \cite{darpa_report}. 
+    to complete the course, with the highest-scoring one covering only 7.5 miles, resulting in the prize remaining unclaimed <strong style="color: blue;">[17]</strong>. 
     Nevertheless, the competition proved valuable, providing a hopeful preview of what could be achieved.
 </p>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
     Merely a day following the conclusion of the initial challenge, DARPA revealed plans for a second Grand Challenge to be held in the autumn of 2005 
-    \cite{buehler20072005}. Building upon insights gleaned from the previous event, five vehicles, out of the 195 participating teams, triumphantly 
-    navigated a 132-mile course in southern Nevada. The entry from Stanford University, named "Stanley" \cite{stanley_report}, clinched victory by 
-    crossing the finish line first in 6 hours and 53 minutes, securing the \$2 million prize \cite{thrun2006stanley}. Their vehicle came equipped 
-    with a camera, LiDAR, RADAR \cite{skolnik1962introduction, levanon1988radar}, Global Positioning System (GPS), and an Intel CPU. The primary 
+    <strong style="color: blue;">[8]</strong>. Building upon insights gleaned from the previous event, five vehicles, out of the 195 participating teams, triumphantly 
+    navigated a 132-mile course in southern Nevada. The entry from Stanford University, named "Stanley" <strong style="color: blue;">[6]</strong>, clinched victory by 
+    crossing the finish line first in 6 hours and 53 minutes, securing the \$2 million prize <strong style="color: blue;">[7]</strong>. Their vehicle came equipped 
+    with a camera, LiDAR, RADAR <strong style="color: blue;">[1, 2]</strong>, Global Positioning System (GPS), and an Intel CPU. The primary 
     technological hurdle in crafting Stanley was to engineer a supremely dependable system, capable of navigating diverse and unstructured off-road 
     terrains at considerable speeds, all while maintaining exceptional precision.
 </p>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
-    In a bid to set even higher standards, DARPA organized a third competition in 2007, known as the Urban Challenge \cite{darpa_urban_report}. 
+    In a bid to set even higher standards, DARPA organized a third competition in 2007, known as the Urban Challenge <strong style="color: blue;">[9]</strong>. 
     This event saw driverless vehicles tackling a sophisticated course set in a simulated city environment in Victorville, California 
-    \cite{buehler2009darpa}. The vehicles had to navigate through moving traffic and obstacles while adhering to traffic regulations. 
+    <strong style="color: blue;">[11]</strong>. The vehicles had to navigate through moving traffic and obstacles while adhering to traffic regulations. 
     Out of the 11 participating teams, six successfully completed the course. The "Tartan Racing" team, headed by Carnegie Mellon University, 
     secured the top position by earning the highest points based on completion time and adherence to California driving regulations, 
-    thus claiming the \$2 million prize \cite{urmson2007tartan}. It integrated an array of LiDAR, RADAR, and visual sensors to navigate 
+    thus claiming the \$2 million prize <strong style="color: blue;">[10]</strong>. It integrated an array of LiDAR, RADAR, and visual sensors to navigate 
     urban environments securely. While this competition marked the largest and most consequential event of its kind at the time, the testing 
     environment fell short in replicating certain elements of real-world urban driving scenarios, such as the presence of pedestrians and 
-    cyclists \cite{yurtsever2020survey}.
+    cyclists <strong style="color: blue;">[43]</strong>.
 </p>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
-    Following the DARPA Urban Challenge, numerous additional automated driving competitions \cite{broggi2012vislab, broggi2015proud, cerri2011computer, englund2016grand} 
+    Following the DARPA Urban Challenge, numerous additional automated driving competitions <strong style="color: blue;">[14, 18, 13, 23]</strong>
     took place in various countries. The swift advancement of technology and regulations governing its implementation are propelled by the 
     collaboration among information technology and automotive sectors, academic and research organizations, the Defense Department and its 
-    affiliates, as well as federal and state transportation authorities \cite{national2020ensuring}. 
+    affiliates, as well as federal and state transportation authorities <strong style="color: blue;">[38]</strong>. 
 </p>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
     The Society of Automotive Engineers (SAE) delineates six levels of driving automation, ranging from 0 (fully manual) to 5 (fully autonomous), 
-    which have been endorsed by the U.S. Department of Transportation \cite{sae_1, synopsys_report}. Researchers predict that by 2025, 
-    approximately 8 million autonomous or semi-autonomous vehicles will be on the roads \cite{sae_report}. By 2030, an estimated 82 million 
-    Intelligent Vehicles (IVs) with Level 4/Level 5 capabilities are expected to operate in the US, Europe, and China \cite{consultancy_report}. 
+    which have been endorsed by the U.S. Department of Transportation <strong style="color: blue;">[48, 81]</strong>. Researchers predict that by 2025, 
+    approximately 8 million autonomous or semi-autonomous vehicles will be on the roads <strong style="color: blue;">[82]</strong>. By 2030, an estimated 82 million 
+    Intelligent Vehicles (IVs) with Level 4/Level 5 capabilities are expected to operate in the US, Europe, and China <strong style="color: blue;">[25]</strong>. 
     Despite the remarkable advancements in Autonomous Driving technology, significant challenges persist. One critical hurdle for their widespread 
     deployment in real-world settings is the evaluation of their safety. Intelligent cyber-physical systems face greater challenges in deployment 
     because our world is intricate and diverse, leading to significant uncertainty for the intelligent agents. Even for humans, mastering driving 
-    skills requires several months due to the complexity of traffic scenarios \cite{ding2023survey}. Hence, Autonomous Vehicles (AV's) must undergo 
+    skills requires several months due to the complexity of traffic scenarios <strong style="color: blue;">[69]</strong>. Hence, Autonomous Vehicles (AV's) must undergo 
     extensive training and evaluation across various scenarios to showcase their safety and ability to handle diverse situations 
-    \cite{zhong2021survey, riedmaier2020survey}.
+    <strong style="color: blue;">[55, 37]</strong>.
 </p>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
     In a technical report released by the National Highway Traffic Safety Administration (NHTSA), it was revealed that 94% of road accidents stem 
-    from human errors \cite{singh2015critical}. Given this context, Automated Driving Systems are being advanced with the potential to curb 
-    accidents, cut emissions, assist mobility-impaired individuals, and alleviate driving-related stress \cite{crayton2017autonomous}. Nonetheless, 
+    from human errors <strong style="color: blue;">[21]</strong>. Given this context, Automated Driving Systems are being advanced with the potential to curb 
+    accidents, cut emissions, assist mobility-impaired individuals, and alleviate driving-related stress <strong style="color: blue;">[26]</strong>. Nonetheless, 
     achieving reliable automated driving in urban settings remains a challenge.
 </p>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
     Achieving level four and higher driving automation in urban road networks poses an ongoing and formidable challenge. The environmental factors, 
     ranging from weather conditions to human behavior in the vicinity, are notably unpredictable and complex to anticipate. Moreover, system 
-    failures have resulted in accidents: in the Hyundai competition, one of the Autonomous Driving Systems crashed due to rain \cite{hyundai}; 
-    Google's Autonomous Vehicle collided with a bus while changing lanes because it failed to accurately gauge the bus's speed \cite{google_1}; 
-    and Tesla's Autopilot failed to detect a white truck, resulting in a fatal collision with the driver \cite{tesla_1}.
+    failures have resulted in accidents: in the Hyundai competition, one of the Autonomous Driving Systems crashed due to rain <strong style="color: blue;">[86]</strong>; 
+    Google's Autonomous Vehicle collided with a bus while changing lanes because it failed to accurately gauge the bus's speed <strong style="color: blue;">[85]</strong>; 
+    and Tesla's Autopilot failed to detect a white truck, resulting in a fatal collision with the driver <strong style="color: blue;">[90]</strong>.
 </p>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
     Furthermore, there have been additional occurrences of accidents involving self-driving cars. In November of last year, a pedestrian in San 
     Francisco was involved in a hit-and-run accident, where they were initially struck by a vehicle and thrown into an adjacent lane. Subsequently, 
     a Cruise robotaxi, unable to halt in time, collided with the pedestrian and dragged them. This incident compelled Cruise to recall 950 
-    driverless cars from roads across the United States \cite{cruise_1}. Despite outperforming its rivals, Waymo has also experienced accidents. 
+    driverless cars from roads across the United States <strong style="color: blue;">[89]</strong>. Despite outperforming its rivals, Waymo has also experienced accidents. 
     Earlier this year, a driverless Waymo vehicle collided with a cyclist in San Francisco, resulting in minor injuries, prompting a review by the 
-    state's auto regulators \cite{waymo_3}. Another incident in December 2023 involved two vehicles crashing into the same towed pickup truck in 
-    Phoenix, Arizona, leading Waymo to initiate a voluntary recall of the software utilized in its robotaxi fleet \cite{waymo_2}.
+    state's auto regulators <strong style="color: blue;">[88]</strong>. Another incident in December 2023 involved two vehicles crashing into the same towed pickup truck in 
+    Phoenix, Arizona, leading Waymo to initiate a voluntary recall of the software utilized in its robotaxi fleet <strong style="color: blue;">[87]</strong>.
 </p>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
-    Accidents resulting from underdeveloped systems erode public trust and, tragically, result in loss of life \cite{hecker2018end}. Safety stands 
+    Accidents resulting from underdeveloped systems erode public trust and, tragically, result in loss of life <strong style="color: blue;">[28]</strong>. Safety stands 
     as the top consumer apprehension regarding autonomous vehicles, with 36% of Americans expressing distrust in the technology's ability to ensure 
     the safety of motorists and pedestrians. The prevailing sentiment among consumers regarding how autonomous vehicles will impact America's 
     roadways leans towards negativity. Skepticism and concern are the predominant emotions surrounding self-driving cars, with nearly half (45%) 
     of consumers expressing either of these feelings. Conversely, only 16% of consumers report feeling excitement, with just 8% expressing an 
-    overall positive outlook toward these vehicles \cite{forbes_1}. Consumer sentiment aligns with projections indicating slow growth in the 
+    overall positive outlook toward these vehicles <strong style="color: blue;">[83]</strong>. Consumer sentiment aligns with projections indicating slow growth in the 
     adoption of self-driving vehicles. Survey data reveals that self-driving cars are likely to remain a niche product, as 51% of consumers 
-    indicate they are unlikely to own or use such vehicles within the next five years \cite{wash_1}. In contrast, only 14% believe they are 
+    indicate they are unlikely to own or use such vehicles within the next five years <strong style="color: blue;">[84]</strong>. In contrast, only 14% believe they are 
     very likely to own a vehicle with self-driving capabilities. These findings underscore consumer concerns regarding the safety and reliability 
     of self-driving cars, suggesting that market growth in this sector is poised to be sluggish in the next five years. A significant shift in 
     public perception will be essential for self-driving vehicles to assert themselves as a dominant force in the U.S. auto market in the 
-    foreseeable future \cite{forbes_1}. 
+    foreseeable future <strong style="color: blue;">[83]</strong>. 
 </p>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
     Establishing public trust will require the development of more reliable and robust Autonomous Driving Systems that are less susceptible to 
@@ -123,20 +123,20 @@
 <div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
 <strong style="font-size: x-large;">Diffusion Models</strong>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
-    Diffusion models \cite{sohl2015deep, ho2020denoising, song2019generative, song2020score, dhariwal2021diffusion, nichol2021improved, rombach2022high, croitoru2023diffusion, yang2023diffusion} 
+    Diffusion models <strong style="color: blue;">[22, 33, 30, 40, 46, 50, 65, 68, 80]</strong> 
     belong to a category of probabilistic generative models designed to reverse the gradual degradation of training data structure. The training 
     process involves two distinct phases: forward diffusion and backward denoising. During the forward diffusion phase, multiple steps are executed, 
     each involving the addition of low-level noise to input images. This noise's intensity varies with each step, progressively deteriorating the 
     training data until it becomes pure Gaussian noise. The backward denoising phase reverses this process by systematically removing the noise, 
     thereby reconstructing the original images. Consequently, during inference, images are generated by gradually reconstructing them from random 
-    white noise. The noise subtraction at each step is estimated using a neural network, typically leveraging a U-Net \cite{ronneberger2015u} 
+    white noise. The noise subtraction at each step is estimated using a neural network, typically leveraging a U-Net <strong style="color: blue;">[20]</strong> 
     architecture, enabling dimension preservation.
 </p>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
     Diffusion models are inspired by non-equilibrium thermodynamics. They define a Markov chain of diffusion steps to slowly add random noise to 
     data and then learn to reverse the diffusion process to construct desired data samples from the noise. Unlike VAE or flow models, 
     diffusion models are learned with a fixed procedure and the latent variable has high dimensionality (same as the original data) 
-    \cite{weng2021diffusion}.
+    <strong style="color: blue;">[54]</strong>.
 </p>
 <figure></figure>
 <img src="DDPM.png" alt="Denoising Diffusion Probabilistic Model" width=100% height="auto">
