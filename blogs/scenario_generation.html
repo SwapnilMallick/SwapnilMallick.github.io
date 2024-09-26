@@ -413,11 +413,60 @@ $$
 <p style="text-align: justify;">
     According to Ho et al. <strong style="color: blue;">[33]</strong>, the diffusion model works better when we remove the scaling term \(\frac{\beta^2_t}{2\sigma^2_t{\alpha}_t{(1 - \bar{\alpha}_t)}}\). 
     Hence we can rewrite the training loss term \(L_t\) as,
-    $\begin{aligned}
+    $$
+    \begin{aligned}
         L_t &= \Vert\epsilon - \epsilon_\theta(\mathbf{x}_t, t)\Vert^2
     \end{aligned}
-    $
+    $$
 </p>
+<p><br></p>
+</div>
+
+<div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+<strong style="font-size: x-large;">Text-to-Image Generation Using Diffusion Models</strong>
+<p style="text-align: justify;">
+    Vision-language models have garnered significant attention lately due to their numerous potential applications <strong style="color: blue;">[51]</strong>. 
+    Text-to-image generation involves creating an image based on descriptive text <strong style="color: blue;">[58]</strong>. Blended diffusion <strong style="color: blue;">[56]</strong>
+    combines pre-trained DDPM <strong style="color: blue;">[33]</strong> and CLIP <strong style="color: blue;">[51]</strong> models to propose a solution for region-based image 
+    editing, offering natural language guidance and versatility across various image types. Conversely, unCLIP 
+    (DALL-E 2) <strong style="color: blue;">[63]</strong> introduces a two-stage approach: a prior model generating a CLIP-based image embedding 
+    conditioned on a text caption, and a diffusion-based decoder producing an image based on the image embedding. 
+    Imagen <strong style="color: blue;">[66]</strong> presents a text-to-image diffusion model along with a comprehensive benchmark for performance assessment. 
+    It is shown to demonstrate competitive performance compared to existing methods like VQ-GAN+CLIP <strong style="color: blue;">[57]</strong>, 
+    Latent Diffusion Models <strong style="color: blue;">[62]</strong>, and DALL-E 2 <strong style="color: blue;">[63]</strong>. Inspired by the ability of guided 
+    diffusion models <strong style="color: blue;">[46, 60]</strong>\cite{dhariwal2021diffusion, ho2022classifier} to generate photo-realistic samples and the ability of 
+    text-to-image models to handle free-form prompts, GLIDE <strong style="color: blue;">[49]</strong> applies guided diffusion to the application of 
+    text-conditioned image synthesis. VQ-Diffusion <strong style="color: blue;">[59]</strong> introduces a vector-quantized diffusion model tailored for 
+    text-to-image generation, addressing unidirectional bias and preventing accumulative prediction error. Versatile Diffusion <strong style="color: blue;">[79]</strong> 
+    proposes the first unified multi-flow multimodal diffusion framework, which supports image-to-text, image-variation, text-to-image and 
+    text-variation. It can be further extended to other applications such as semantic-style disentanglement, image-text dual-guided generation, 
+    latent image-to-text-to-image editing and more. A promising new direction in diffusion model research involves utilizing pre-trained 
+    text-to-image diffusion models for more complex or fine-grained control of synthesis results. DreamBooth <strong style="color: blue;">[76]</strong> 
+    introduces the first technique addressing the challenging task of subject-driven generation. This approach allows users to recontextualize 
+    subjects, modify their properties and original art renditions based on just a few casually captured images of the subject.
+</p>
+<p><br></p>
+</div>
+
+<div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+<strong style="font-size: x-large;">Text-to-Video Generation Using Diffusion Models</strong>
+<p style="text-align: justify;">
+    Significant advancements in text-to-image diffusion-based generation have spurred interest in the development of text-to-video generation. 
+    Make-A-Video <strong style="color: blue;">[67]</strong> proposes an extension of diffusion-based text-to-image models to text-to-video through a spatio-temporally 
+    factorized diffusion model. By leveraging joint text-image priors, the need for paired text-video data is circumvented, with additional 
+    super-resolution strategies presented for high-definition, high frame-rate text-to-video generation. Imagen Video <strong style="color: blue;">[61]</strong> 
+    achieves high-definition video generation by employing cascaded video diffusion models and adapting successful strategies from 
+    text-to-image settings, such as using a frozen T5 text encoder <strong style="color: blue;">[36]</strong> and eliminating the need for classifiers. 
+    Tune-A-Video <strong style="color: blue;">[77]</strong> introduces one-shot video tuning for text-to-video generation, removing the requirement for extensive 
+    training with large-scale video datasets. It utilizes efficient attention tuning and structural inversion to enhance temporal 
+    consistency significantly. Text2Video-Zero <strong style="color: blue;">[73]</strong> accomplishes zero-shot text-to-video synthesis 
+    utilizing a pre-trained text-to-image diffusion model, ensuring temporal consistency through motion dynamics in latent codes 
+    and cross-frame attention. Its aim is to enable cost-effective text-guided video generation and editing without additional 
+    fine-tuning. FateZero <strong style="color: blue;">[75]</strong> introduces the first framework for temporal-consistent zero-shot text-to-video editing 
+    using a pre-trained text-to-image diffusion model. It merges attention maps in the DDIM <strong style="color: blue;">[39]</strong> inversion and 
+    generation processes to preserve motion and structure consistency optimally during editing.   
+</p>
+<p><br></p>
 </div>
 
 <div id="bibtex_display">
