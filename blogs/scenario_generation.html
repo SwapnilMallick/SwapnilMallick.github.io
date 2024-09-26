@@ -143,6 +143,19 @@
     <figcaption><strong>Figure 1.</strong> Markov chain of forward (reverse) diffusion process of generating a sample by slowly adding (removing) noise. 
         (Image source: Ho et al. 2020 <strong style="color: blue;">[33]</strong> with a few additional annotations)</figcaption>
 </figure>
+</div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+<strong style="font-size: x-large;">Denoising Diffusion Probabilistic Model (DDPM)</strong>
+<p><strong>Forward Diffusion Process</strong></p>
+<p>
+    DDPM's <strong style="color: blue;">[22, 23]</strong> slowly corrupt the training data using Gaussian noise \ref{fig:forward_process}. 
+    Let $q(\mathbf{x_0})$ be the data density, where the index 0 denotes the fact that the data is uncorrupted (original). Given an 
+    uncorrupted training sample $\mathbf{x}_0 \sim q(\mathbf{x}_0)$, the noised versions $\mathbf{x_1, x_2, \dots, x_T}$ are obtained 
+    according to the following Markovian process:
+    $$
+    q(\mathbf{x}_t \vert \mathbf{x}_{t-1}) = \mathcal{N}(\mathbf{x}_t; \sqrt{1 - \beta_t} \mathbf{x}_{t-1}, \beta_t\mathbf{I}) \quad, \forall t \in \{1, 2, \dots, T\}
+    $$
+</p>
+<div>
 
 </div>
 
