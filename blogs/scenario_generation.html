@@ -339,7 +339,8 @@
         &\quad\quad\quad+ \frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}C(\mathbf{x}_t, \mathbf{x}_0)\biggr\} \Biggr]
     \end{aligned}
     $$
-    \noindent Now, let us examine the terms free of \(\mathbf{x}_{t- 1}\) i.e., \(C(\mathbf{x}_t, \mathbf{x}_0)\):
+    <p style="text-align: justify;">
+    Now, let us examine the terms free of \(\mathbf{x}_{t- 1}\) i.e., \(C(\mathbf{x}_t, \mathbf{x}_0)\):
     $$
     \begin{aligned}
         \frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}C(\mathbf{x}_t, \mathbf{x}_0) &= \frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}\biggl(\frac{\mathbf{x}^2_t}{1 - \alpha_t} + \frac{\bar{\alpha}^2_{t - 1}\mathbf{x}^2_0}{1 - \bar{\alpha}_{t - 1}} -\frac{\mathbf{x}^2_t}{1 - \bar{\alpha}_t} - \frac{\bar{\alpha}_t\mathbf{x}^2_0}{1 - \bar{\alpha}_t} + \frac{2\sqrt{\bar{\alpha}_t}\mathbf{x}_0\mathbf{x}_t}{1 - \bar{\alpha}_t}\biggr) \\
@@ -353,7 +354,20 @@
         \therefore\quad\quad\quad\frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}C(\mathbf{x}_t, \mathbf{x}_0) &= \Bigg(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \bar{\alpha}_t)}\Bigg)^2
     \end{aligned}
     $$
-    
+    </p>
+    <p style="text-align: justify;">
+        Now, we can rewrite \(q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0)\) as the following:
+        $$
+    \begin{aligned}
+        q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0) &\propto \exp \frac{-1}{2}\Biggl[\frac{1 - \bar{\alpha}_t}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}\biggl\{\mathbf{x}^2_{t - 1} - 2\mathbf{x}_{t - 1}(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \bar{\alpha}_t)}) \\
+        &\quad\quad\quad+ \frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}C(\mathbf{x}_t, \mathbf{x}_0)\biggr\} \Biggr] \\
+        & \propto \exp \frac{-1}{2}\Biggl[\frac{1 - \bar{\alpha}_t}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}\biggl\{\mathbf{x}^2_{t - 1} - 2\mathbf{x}_{t - 1}(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \bar{\alpha}_t)}) \\
+        &\quad\quad\quad+ \bigg(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \bar{\alpha}_t)}\bigg)^2\biggr\} \Biggr] \\
+        & \propto \exp \frac{-1}{2}\Biggl[\frac{1}{\frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}}\biggl\{\mathbf{x}_{t - 1} -\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \bar{\alpha}_t)}\biggr\}^2 \Biggr]
+    \end{aligned}
+    $$
+    </p>
+
 </p>
 </div>
 
