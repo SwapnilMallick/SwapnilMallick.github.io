@@ -217,6 +217,9 @@
         &= \sqrt{\bar{\alpha}_t}\textbf{x}_0 + \sqrt{1 - \bar{\alpha}_t}\epsilon
     \end{aligned}
     $$
+    This can be rewritten as the following:
+    $$q(\mathbf{x}_t \vert \mathbf{x}_0) = \mathcal{N}(\mathbf{x}_t; \sqrt{\bar{\alpha}_t} \mathbf{x}_0, (1 - \bar{\alpha}_t)\mathbf{I})$$
+    ;where \(\alpha_t = 1 - \beta_t\) and \(\bar{\alpha}_t = \prod^{t}_{i=1} \alpha_i\).
 </p>
 </div>
 
