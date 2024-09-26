@@ -469,6 +469,73 @@ $$
 <p><br></p>
 </div>
 
+<div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+<strong style="font-size: x-large;">Scenario Generation</strong>
+<p style="text-align: justify;"> 
+    \textbf{Deep Learning Models:} In <strong style="color: blue;">[53]</strong> and <strong style="color: blue;">[41]</strong>, deep learning models are integrated into the 
+    generation process. Reference <strong style="color: blue;">[53]</strong> utilizes a Long Short-Term Memory (LSTM) <strong style="color: blue;">[5]</strong> module to 
+    generate the trajectory of surrounding vehicles and pedestrians by inputting the current state of the Autonomous Vehicle (AV) and a 
+    high-definition map. The model is trained with normal traffic data to produce naturalistic scenarios. On the other hand, <strong style="color: blue;">[41]</strong> 
+    proposes a sophisticated system for scenario generation in a simulator. This system employs a Convolutional Neural Network 
+    (CNN) <strong style="color: blue;">[19]</strong> as a selector to generate agents surrounding the AV. In TrafficSim <strong style="color: blue;">[52]</strong>, 
+    both Gated Recurrent Unit (GRU) and CNN are utilized to learn the behaviors of multi-agents from real-world data, enabling the 
+    generation of realistic multi-agent traffic scenarios. 
+</p>
+<p><br></p>
+<p style="text-align: justify;">
+    \textbf{Deep Generative Models:} In <strong style="color: blue;">[71]</strong>, an auto-encoder structure is employed to independently 
+    generate vehicle initial positions and trajectories. Leveraging the capabilities of VAE <strong style="color: blue;">[15]</strong>, <strong style="color: blue;">[27]</strong> 
+    learns a latent space of encounter trajectories and generates novel scenarios by sampling from this space. However, due to limited 
+    understanding of the latent code, the generation process lacks control.
+</p>
+<p style="text-align: justify;">
+    In <strong style="color: blue;">[31]</strong>, the authors introduce CMTS, which combines normal and collision trajectories to generate safety-critical 
+    scenarios through interpolation in the latent space. Meanwhile, <strong style="color: blue;">[47]</strong> utilizes GANs and recurrent models 
+    to produce realistic highway lane change scenarios, leveraging real-world data in the discriminator to enhance generator performance.
+</p>
+<p style="text-align: justify;">
+    One of the advantages of Deep Generative Models lies in their ability to learn a low-dimensional latent space from high-dimensional 
+    and structured data using neural networks, facilitating the generation of complex sensing scenarios. SurfelGAN, proposed 
+    in <strong style="color: blue;">[42]</strong>, directly generates point cloud data representing scenarios from the AV's perspective. 
+    Reference <strong style="color: blue;">[45]</strong> augments collected driving videos by adding new vehicles to generate realistic video scenarios, 
+    incorporating motion planning considerations. Moreover, <strong style="color: blue;">[32]</strong> employs a GAN <strong style="color: blue;">[16]</strong> 
+    framework to generate traffic videos with multi-object scene synthesis, integrating physical conditions to enhance realism. 
+    Finally, <strong style="color: blue;">[29]</strong> designs a data-driven scenario simulator to generate both LiDAR and trajectory data, enhancing the 
+    diversity of driving scenarios.
+</p>
+<p style="text-align: justify;">
+    Efforts have recently been dedicated to generating driving scenarios using diffusion models. Scenario Diffusion <strong style="color: blue;">[74]</strong> is 
+    inspired by the understanding that the instantaneous position of each agent is closely tied to their behaviors. It integrates 
+    latent diffusion <strong style="color: blue;">[65]</strong>, object detection, and trajectory regression to produce oriented bounding boxes and trajectories 
+    simultaneously, offering a model of both the static placement of agents and their behaviors. Evaluation of Scenario Diffusion 
+    involves generating driving scenarios based solely on map data, as well as with additional conditioning tokens. Furthermore, an analysis 
+    of the model's generalization capabilities across different geographical regions demonstrates its ability to capture diverse traffic patterns 
+    effectively. The Scenario Diffusion model has two components. The first is an autoencoder, which projects complex driving scenarios into a 
+    more manageable representational space. The second component is the diffusion model. Like all diffusion models, Scenario Diffusion is trained 
+    by adding noise to real-world scenarios and asking the model to remove this noise. Once the model is trained, random noise is sampled and 
+    the model is used to gradually convert this noise into a realistic driving scenario.
+</p>
+<p style="text-align: justify;">
+    DiffScene <strong style="color: blue;">[78]</strong>, a diffusion-enabled generation framework, is able to generate safety-critical scenarios effectively 
+    while preserving its realism, satisfying real-world physical constraints. It is used to further evaluate and improve the safety and 
+    robustness of various AV algorithms. It leverages diffusion model to capture the low-density spaces in the distribution to generate 
+    realistic safety-critical scenarios efficiently. Then, a guided adversarial optimization process is employed to modify the generation 
+    results. During each diffusion step, the generated scenarios are constrained and optimized using 3 different 
+    objectives: \emph{safety-based objective, functionality-based objective, and constraint-based objective}. Most existing methods, 
+    like RELATE <strong style="color: blue;">[32]</strong> and STRIVE <strong style="color: blue;">[64]</strong> focus on only modeling the existing data distribution 
+    or applying scenario-specific rules. They fail to generate controllable rare events such as safety-critical scenarios efficiently. 
+    DiffScene tries to solve these challenges.
+</p>
+<p style="text-align: justify;">
+    Guo et al. <strong style="color: blue;">[72]</strong> present an innovative data-driven approach that employs stable diffusion model to address 
+    the task of safety-critical driving scenario generation. This work introduces a transformer encoder and region-guided cross attention 
+    used to provide coordinate guidance with the pre-trained diffusion model while best preserving its original generation ability. 
+    Moreover, a mask-aware adapter is also proposed which is specialized for dealing with mask condition to reduce edge artifacts. 
+    This mask-aware adapter is composed of a parameterized downsampling network and a feature pyramid network.
+</p>
+<p><br></p>
+</div>
+
 <div id="bibtex_display">
 </div>
 </body>
