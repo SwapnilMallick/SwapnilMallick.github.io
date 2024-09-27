@@ -311,7 +311,7 @@
     $$
 </p>
 <p style="text-align: justify;">
-    We can entirely disregard the second term because $q$ lacks any trainable parameters; it merely represents a forward process that continuously 
+    We can entirely disregard the second term because \(q\) lacks any trainable parameters; it merely represents a forward process that continuously 
     introduces noise. Additionally, \(p(\mathbf{x}_T)\) comprises random noise samples from our Gaussian distribution. Moreover, based on the theory 
     mentioned earlier, which asserts that \(q\) will converge to a normal distribution, we can confidently anticipate that the KL divergence will 
     be minimal. Now, let us turn our attention to the other KL divergence term. As discussed earlier, \(p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)\) 
