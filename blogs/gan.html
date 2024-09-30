@@ -1,0 +1,733 @@
+<html>
+  <head>
+    <!-- See http://docs.mathjax.org/en/latest/web/start.html#using-mathjax-from-a-content-delivery-network-cdn -->
+    <title>Scenario Generation</title>
+
+    <meta name="author" content="Swapnil Mallick">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+      <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/pcooksey/bibtex-js@1.0.0/src/bibtex_js.js"></script>
+  </head>
+<body>
+<div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+    <h1>A Guide To Generative Adversarial Network</h1>
+    <h4>Date: August 29, 2024 | Estimated Reading Time: 15-20 min | Author: Swapnil Mallick </h4>
+</div>
+<div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;font-size: x-large;">
+<strong style="font-size: x-large;">Introduction</strong></p>
+<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
+    
+</p>
+<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
+    . 
+</p>
+<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
+    
+</p>
+<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
+    In a bid to set even higher standards, DARPA organized a third competition in 2007, known as the Urban Challenge <strong style="color: blue;">[9]</strong>. 
+    This event saw driverless vehicles tackling a sophisticated course set in a simulated city environment in Victorville, California 
+    <strong style="color: blue;">[11]</strong>. The vehicles had to navigate through moving traffic and obstacles while adhering to traffic regulations. 
+    Out of the 11 participating teams, six successfully completed the course. The "Tartan Racing" team, headed by Carnegie Mellon University, 
+    secured the top position by earning the highest points based on completion time and adherence to California driving regulations, 
+    thus claiming the \$2 million prize <strong style="color: blue;">[10]</strong>. It integrated an array of LiDAR, RADAR, and visual sensors to navigate 
+    urban environments securely. While this competition marked the largest and most consequential event of its kind at the time, the testing 
+    environment fell short in replicating certain elements of real-world urban driving scenarios, such as the presence of pedestrians and 
+    cyclists <strong style="color: blue;">[43]</strong>.
+</p>
+<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
+    Following the DARPA Urban Challenge, numerous additional automated driving competitions <strong style="color: blue;">[14, 18, 13, 23]</strong>
+    took place in various countries. The swift advancement of technology and regulations governing its implementation are propelled by the 
+    collaboration among information technology and automotive sectors, academic and research organizations, the Defense Department and its 
+    affiliates, as well as federal and state transportation authorities <strong style="color: blue;">[38]</strong>. 
+</p>
+<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
+    The Society of Automotive Engineers (SAE) delineates six levels of driving automation, ranging from 0 (fully manual) to 5 (fully autonomous), 
+    which have been endorsed by the U.S. Department of Transportation <strong style="color: blue;">[48, 81]</strong>. Researchers predict that by 2025, 
+    approximately 8 million autonomous or semi-autonomous vehicles will be on the roads <strong style="color: blue;">[82]</strong>. By 2030, an estimated 82 million 
+    Intelligent Vehicles (IVs) with Level 4/Level 5 capabilities are expected to operate in the US, Europe, and China <strong style="color: blue;">[25]</strong>. 
+    Despite the remarkable advancements in Autonomous Driving technology, significant challenges persist. One critical hurdle for their widespread 
+    deployment in real-world settings is the evaluation of their safety. Intelligent cyber-physical systems face greater challenges in deployment 
+    because our world is intricate and diverse, leading to significant uncertainty for the intelligent agents. Even for humans, mastering driving 
+    skills requires several months due to the complexity of traffic scenarios <strong style="color: blue;">[69]</strong>. Hence, Autonomous Vehicles (AV's) must undergo 
+    extensive training and evaluation across various scenarios to showcase their safety and ability to handle diverse situations 
+    <strong style="color: blue;">[55, 37]</strong>.
+</p>
+<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
+    In a technical report released by the National Highway Traffic Safety Administration (NHTSA), it was revealed that 94% of road accidents stem 
+    from human errors <strong style="color: blue;">[21]</strong>. Given this context, Automated Driving Systems are being advanced with the potential to curb 
+    accidents, cut emissions, assist mobility-impaired individuals, and alleviate driving-related stress <strong style="color: blue;">[26]</strong>. Nonetheless, 
+    achieving reliable automated driving in urban settings remains a challenge.
+</p>
+<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
+    Achieving level four and higher driving automation in urban road networks poses an ongoing and formidable challenge. The environmental factors, 
+    ranging from weather conditions to human behavior in the vicinity, are notably unpredictable and complex to anticipate. Moreover, system 
+    failures have resulted in accidents: in the Hyundai competition, one of the Autonomous Driving Systems crashed due to rain <strong style="color: blue;">[86]</strong>; 
+    Google's Autonomous Vehicle collided with a bus while changing lanes because it failed to accurately gauge the bus's speed <strong style="color: blue;">[85]</strong>; 
+    and Tesla's Autopilot failed to detect a white truck, resulting in a fatal collision with the driver <strong style="color: blue;">[90]</strong>.
+</p>
+<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
+    Furthermore, there have been additional occurrences of accidents involving self-driving cars. In November of last year, a pedestrian in San 
+    Francisco was involved in a hit-and-run accident, where they were initially struck by a vehicle and thrown into an adjacent lane. Subsequently, 
+    a Cruise robotaxi, unable to halt in time, collided with the pedestrian and dragged them. This incident compelled Cruise to recall 950 
+    driverless cars from roads across the United States <strong style="color: blue;">[89]</strong>. Despite outperforming its rivals, Waymo has also experienced accidents. 
+    Earlier this year, a driverless Waymo vehicle collided with a cyclist in San Francisco, resulting in minor injuries, prompting a review by the 
+    state's auto regulators <strong style="color: blue;">[88]</strong>. Another incident in December 2023 involved two vehicles crashing into the same towed pickup truck in 
+    Phoenix, Arizona, leading Waymo to initiate a voluntary recall of the software utilized in its robotaxi fleet <strong style="color: blue;">[87]</strong>.
+</p>
+<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
+    Accidents resulting from underdeveloped systems erode public trust and, tragically, result in loss of life <strong style="color: blue;">[28]</strong>. Safety stands 
+    as the top consumer apprehension regarding autonomous vehicles, with 36% of Americans expressing distrust in the technology's ability to ensure 
+    the safety of motorists and pedestrians. The prevailing sentiment among consumers regarding how autonomous vehicles will impact America's 
+    roadways leans towards negativity. Skepticism and concern are the predominant emotions surrounding self-driving cars, with nearly half (45%) 
+    of consumers expressing either of these feelings. Conversely, only 16% of consumers report feeling excitement, with just 8% expressing an 
+    overall positive outlook toward these vehicles <strong style="color: blue;">[83]</strong>. Consumer sentiment aligns with projections indicating slow growth in the 
+    adoption of self-driving vehicles. Survey data reveals that self-driving cars are likely to remain a niche product, as 51% of consumers 
+    indicate they are unlikely to own or use such vehicles within the next five years <strong style="color: blue;">[84]</strong>. In contrast, only 14% believe they are 
+    very likely to own a vehicle with self-driving capabilities. These findings underscore consumer concerns regarding the safety and reliability 
+    of self-driving cars, suggesting that market growth in this sector is poised to be sluggish in the next five years. A significant shift in 
+    public perception will be essential for self-driving vehicles to assert themselves as a dominant force in the U.S. auto market in the 
+    foreseeable future <strong style="color: blue;">[83]</strong>. 
+</p>
+<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
+    Establishing public trust will require the development of more reliable and robust Autonomous Driving Systems that are less susceptible to 
+    accidents. While current Autonomous Vehicles have achieved considerable success under normal conditions through extensive training spanning 
+    hundreds of millions of miles, uncertainties remain regarding their safety and robustness in unique scenarios. For instance, encountering 
+    unexpected situations such as a child suddenly darting into the driving lane to retrieve a ball poses a significant challenge for 
+    Autonomous Vehicles, leaving them with minimal time to react. Even slight errors in response could result in serious consequences. 
+    This underscores the critical need to conduct rigorous testing of self-driving cars' behavior in tailored safety-critical scenarios to 
+    thoroughly assess the safety and robustness of Autonomous Vehicle Systems.
+</p>
+<p>
+    <br>
+</p>
+</div>
+<div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+<strong style="font-size: x-large;">Diffusion Models</strong>
+<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
+    Diffusion models <strong style="color: blue;">[22, 33, 30, 40, 46, 50, 65, 68, 80]</strong> 
+    belong to a category of probabilistic generative models designed to reverse the gradual degradation of training data structure. The training 
+    process involves two distinct phases: forward diffusion and backward denoising. During the forward diffusion phase, multiple steps are executed, 
+    each involving the addition of low-level noise to input images. This noise's intensity varies with each step, progressively deteriorating the 
+    training data until it becomes pure Gaussian noise. The backward denoising phase reverses this process by systematically removing the noise, 
+    thereby reconstructing the original images. Consequently, during inference, images are generated by gradually reconstructing them from random 
+    white noise. The noise subtraction at each step is estimated using a neural network, typically leveraging a U-Net <strong style="color: blue;">[20]</strong> 
+    architecture, enabling dimension preservation.
+</p>
+<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
+    Diffusion models are inspired by non-equilibrium thermodynamics. They define a Markov chain of diffusion steps to slowly add random noise to 
+    data and then learn to reverse the diffusion process to construct desired data samples from the noise. Unlike VAE or flow models, 
+    diffusion models are learned with a fixed procedure and the latent variable has high dimensionality (same as the original data) 
+    <strong style="color: blue;">[54]</strong>.
+</p>
+<p>
+<figure>
+<img src="DDPM.png" alt="Denoising Diffusion Probabilistic Model" width=100% height="auto">
+    <figcaption><strong>Figure 1.</strong> Markov chain of forward (reverse) diffusion process of generating a sample by slowly adding (removing) noise. 
+        (Image source: Ho et al. 2020 <strong style="color: blue;">[33]</strong> with a few additional annotations)</figcaption>
+</figure>
+</p>
+<p>
+    <br>
+</p>
+</div>
+
+<div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+<strong style="font-size: x-large;">Denoising Diffusion Probabilistic Model (DDPM)</strong>
+<p><strong>Forward Diffusion Process</strong></p>
+<p style="text-align: justify;">
+    DDPM's <strong style="color: blue;">[22, 23]</strong> slowly corrupt the training data using Gaussian noise . 
+    Let \(q(\mathbf{x_0})\) be the data density, where the index 0 denotes the fact that the data is uncorrupted (original). Given an 
+    uncorrupted training sample \(\mathbf{x}_0 \sim q(\mathbf{x}_0)\), the noised versions \(\mathbf{x_1, x_2, \dots, x_T}\) are obtained 
+    according to the following Markovian process:
+    $$
+    q(\mathbf{x}_t \vert \mathbf{x}_{t-1}) = \mathcal{N}(\mathbf{x}_t; \sqrt{1 - \beta_t} \mathbf{x}_{t-1}, \beta_t\mathbf{I}) \quad, \forall t \in \{1, 2, \dots, T\}
+    $$
+    where \(T\) is the number of diffusion steps, \(\beta_1, \dots, \beta_T \in &#91;0, 1&#41;\) are hyperparameters representing the variance schedule across diffusion steps, \( \mathbf{I} \) is the identity matrix having the same dimensions
+    as the input image \(\mathbf{x}_0\), and \(\mathcal{N}(\mathbf{x}; \mu, \sigma)\) represents the normal distribution of mean \(\mu\) and covariance \(\sigma\) that produces \(\mathbf{x}\).
+</p>
+<p style="text-align: justify;">
+    <figure style="text-align: center;">
+        <img src="forward_process.png" alt="Diffusion Forward Process" width=70% height="auto">
+            <figcaption><strong>Figure 2.</strong> Change in data distribution in the forward diffusion process</figcaption>
+    </figure>
+</p>
+<p style="text-align: justify;">
+    The primary emphasis of the forward diffusion process, which involves transitioning from the original 
+    image distribution to an isotropic Gaussian distribution, is on the following transition function:
+    $$\mathbf{x}_t = \sqrt{1 - \beta}\mathbf{x}_{t - 1} + \sqrt{\beta}\mathcal{N}(0, \mathbf{I})$$
+</p>
+<p style="text-align: justify;">
+    The repeated application of this transition function somehow transforms an image sampled from a highly complex distribution into a sample from a normal distribution. 
+    It is imperative to understand how this repeated utilization of the transition function accomplishes this outcome.
+    $$
+    \begin{aligned}
+        \mathbf{x}_t &= \sqrt{1 - \beta}\mathbf{x}_{t - 1} + \sqrt{\beta}\mathcal{N}(0, \mathbf{I}) \\
+        &= \sqrt{1 - \beta}(\sqrt{1 - \beta}\mathbf{x}_{t - 2} + \sqrt{\beta}\mathcal{N}(0, \mathbf{I})) + \sqrt{\beta}\mathcal{N}(0, \mathbf{I}) \\
+        &= \sqrt{1 - \beta}^2\mathbf{x}_{t - 2} + \sqrt{1 - \beta}\sqrt{\beta}\mathcal{N}(0, \mathbf{I}) + \sqrt{\beta}\mathcal{N}(0, \mathbf{I}) \\
+        &= \sqrt{1 - \beta}^2(\sqrt{1 - \beta}\mathbf{x}_{t - 3} + \sqrt{\beta}\mathcal{N}(0, \mathbf{I})) + \sqrt{1 - \beta}\sqrt{\beta}\mathcal{N}(0, \mathbf{I}) + \sqrt{\beta}\mathcal{N}(0, \mathbf{I}) \\
+        &= \dots \\
+        &= \underbrace{\sqrt{1 - \beta}^t\mathbf{x}_0}_\text{$\sim 0$} + \dots + \underbrace{\sqrt{1 - \beta}\sqrt{1 - \beta}\sqrt{\beta}\mathcal{N}(0, \mathbf{I})}_\text{$var = \beta(1 - \beta)(1 -\beta)$} + \underbrace{\sqrt{1 - \beta}\sqrt{\beta}\mathcal{N}(0, \mathbf{I})}_\text{$var = \beta(1 - \beta)$} + \underbrace{\sqrt{\beta}\mathcal{N}(0, \mathbf{I})}_\text{$var = \beta$}
+    \end{aligned}
+    $$
+</p>
+<p style="text-align: justify;">
+    For a sufficiently large \(t\) (say, 1000), the first term \(\sqrt{1 - \beta}^t \sim 0\)  as \(0 &lt; 1 - \beta &lt; 1\). The rest of the expression is sum of a GP that can be written as:
+    $$\beta\frac{1 - (1 - \beta)^t}{1 - (1 - \beta)} \sim \frac{\beta}{\beta} = 1$$
+    $$\therefore\quad\mathbf{x}_t = 0.\mathbf{x}_0 + 1.\mathcal{N}(0, \mathbf{I})$$
+    This shows that the repeated use of the transition function will indeed lead to a zero mean and unit variance (isotropic) Gaussian distribution.
+</p>
+<p style="text-align: justify;">
+    An important property of this recursive formulation is that it also allows the direct sampling of \(\mathbf{x}_t\), when \(t\) is drawn from a uniform
+    distribution, i.e., \(\forall t \sim \mathcal{U}(\{1, \dots, T\})\):
+    $$q(\mathbf{x}_t \vert \mathbf{x}_0) = \mathcal{N}(\mathbf{x}_t; \sqrt{\bar{\alpha}_t} \mathbf{x}_0, (1 - \bar{\alpha}_t)\mathbf{I})$$
+    ;where \(\alpha_t = 1 - \beta_t\) and \(\bar{\alpha}_t = \prod_{i=1}^t \alpha_i\).
+    In essence, this equation demonstrates that we can obtain any noisy version \(\mathbf{x}_t\) through a single step, provided we have the original image \(\mathbf{x}_0\) and establish a fixed variance schedule \(\beta_t\).
+</p>
+<p style="text-align: justify;">
+    Mathematically, let us examine how any noisy version of the image can be directly obtained from the original image.
+    $$
+    \begin{aligned}
+        \mathbf{x}_t &= \sqrt{1 - \beta}\mathbf{x}_{t - 1} + \sqrt{\beta}\mathcal{N}(0, \mathbf{I}) \\
+        &= \sqrt{\alpha_t}\mathbf{x}_{t - 1} + \sqrt{1 - \alpha_t}\epsilon_t \quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad ;\text{where }\epsilon_t, \epsilon_{t - 1}, \dots \sim \mathcal{N}(0, \mathbf{I}) \\
+        &= \sqrt{\alpha_t}(\sqrt{\alpha_{t - 1}}\mathbf{x}_{t - 2} + \sqrt{1 - \alpha_{t - 1}}\epsilon_{t - 1}) + \sqrt{1 - \alpha_t}\epsilon_t \\
+        &= \sqrt{\alpha_t}\sqrt{\alpha_{t - 1}}\mathbf{x}_{t - 2} + \sqrt{\alpha_t}\sqrt{1 - \alpha_{t - 1}}\epsilon_{t - 1} + \sqrt{1 - \alpha_t}\epsilon_t \\
+        &= \sqrt{\alpha_t\alpha_{t - 1}}\mathbf{x}_{t - 2} + \sqrt{1 - \alpha_t + \alpha_t - \alpha_t\alpha_{t - 1}}\epsilon \quad\quad\text{   ;where } \epsilon \text{ merges two Gaussians (*)}\\ 
+        &= \sqrt{\alpha_t\alpha_{t - 1}}\mathbf{x}_{t - 2} + \sqrt{1 - \alpha_t\alpha_{t - 1}}\epsilon \\
+        &= \sqrt{\alpha_t\alpha_{t - 1}}(\sqrt{\alpha_{t - 2}}\mathbf{x}_{t - 3} + \sqrt{1 - \alpha_{t - 2}}\epsilon_{t - 2}) + \sqrt{1 - \alpha_t\alpha_{t - 1}}\epsilon \\
+        &= \sqrt{\alpha_t\alpha_{t - 1}\alpha_{t - 2}}\mathbf{x}_{t - 3} + \sqrt{\alpha_t\alpha_{t - 1}}\sqrt{1 - \alpha_{t - 2}}\epsilon_{t - 2} + \sqrt{1 - \alpha_t\alpha_{t - 1}}\epsilon \\
+        &= \sqrt{\alpha_t\alpha_{t - 1}\alpha_{t - 2}}\mathbf{x}_{t - 3} + \sqrt{1 - \alpha_t\alpha_{t - 1}\alpha_{t - 2}}\epsilon \\
+        &= \dots \\
+        &= \sqrt{\alpha_t\alpha_{t - 1}\alpha_{t - 2}\dots\alpha_2\alpha_1}\mathbf{x}_0 + \sqrt{1 - \alpha_t\alpha_{t - 1}\alpha_{t - 2}\dots\alpha_2\alpha_1}\epsilon \\
+        &= \sqrt{\bar{\alpha}_t}\textbf{x}_0 + \sqrt{1 - \bar{\alpha}_t}\epsilon
+    \end{aligned}
+    $$
+    This can be rewritten as the following:
+    $$q(\mathbf{x}_t \vert \mathbf{x}_0) = \mathcal{N}(\mathbf{x}_t; \sqrt{\bar{\alpha}_t} \mathbf{x}_0, (1 - \bar{\alpha}_t)\mathbf{I})$$
+    ;where \(\alpha_t = 1 - \beta_t\) and \(\bar{\alpha}_t = \prod^{t}_{i=1} \alpha_i\).
+</p>
+<p>
+    <br>
+</p>
+</div>
+
+<div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+<p><strong>Reverse Diffusion Process</strong></p>
+<p style="text-align: justify;">
+    By leveraging the above properties, we can generate new samples from \(q(\mathbf{x}_0)\) if we start from a sample \(\mathbf{x}_t \sim \mathcal{N}(0, \mathbf{I})\) and follow the reverse steps \(q(\mathbf{x}_{t - 1}\vert\mathbf{x}_t) = \mathcal{N}(x_{t - 1}, \mu(x_t, t), \Sigma(x_t, t))\). 
+    The reverse process is likewise a diffusion process, featuring transitions that adhere to the same functional form. This implies that our reverse process, which effectively generates data from random noise, also follows a Markov chain with Gaussian transition probability. However, computing it directly would necessitate calculations involving the entire data distribution, which is impractical. 
+    Instead, we resort to approximations to address this challenge. To approximate these steps, we can train a neural network, \(p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t) = \mathcal{N}(x_{t - 1}, \mu_\theta(x_t, t), \Sigma_\theta(x_t, t))\) that receives as input the noisy image \(x_t\) and the embedding at time step \(t\)  and learns to predict
+    the mean \(\mu_\theta(x_t, t)\) and the covariance \(\Sigma_\theta(x_t, t)\).
+</p>
+<p style="text-align: justify;">
+    In an ideal scenario, we would train the neural network with a maximum likelihood objective such that the probability assigned by the model \(p_\theta(x_0)\) to 
+    each training example \(x_0\) is as large as possible. However, \(p_\theta(x_0)\) is intractable because we have to marginalize over all 
+    the possible reverse trajectories to compute it. The solution to this problem is to minimize a variational lower-bound of the negative 
+    log-likelihood instead, which has the following formulation:
+    $$
+    \begin{aligned}
+       \mathcal{L}_{vlb} = -log\text{ }p_\theta(x_0\vert x_1) + \text{KL}(q(x_T\vert x_0)\Vert p(x_T)) + \sum_{t=2}^{T}\text{KL}(q(x_{t-1}\vert x_t, x_0)\Vert p_\theta(x_{t-1}\vert x_t))
+    \end{aligned}
+    $$
+    where \(KL\) denotes the Kullback-Leibler divergence between two probability distributions.
+</p>
+<p style="text-align: justify;">
+    Instead of \(q(\mathbf{x}_{t - 1} \vert \mathbf{x}_t)\), we have an additional conditioning on \(\mathbf{x}_0\) i.e., \(q(\mathbf{x}_{t - 1} \vert \mathbf{x}_t, \mathbf{x}_0)\). 
+    Intuitively, this is a more manageable task because once you observe the original image, you can develop an understanding of how to proceed with denoising, transitioning from one 
+    time step to the previous one. The last term shows that the neural network is trained such that, at each time step \(t\), \(p_\theta(x_{t-1}\vert x_t)\) 
+    is as close as possible to the true posterior of the forward process when conditioned on the original image. Moreover, the posterior \(q(\mathbf{x}_{t-1}\vert \mathbf{x}_t, \mathbf{x}_0)\) is 
+    a Gaussian distribution which has been proven later. But before that, let us see how we arrive at \(\mathcal{L}_{vlb}\).
+</p>
+<p style="text-align: justify;">
+    First, let us write down the lower bound we see in a VAE below:
+    $$
+    \begin{aligned}
+        - log(p_\theta(\mathbf{x}_0)) \leq - log(p_\theta(\mathbf{x}_0)) + D_{KL}(q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)\Vert p_\theta(\mathbf{x}_{1:T}\vert \mathbf{x}_0))
+    \end{aligned}
+    $$
+    $$
+    \begin{aligned}
+        D_{KL}(q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)\Vert p_\theta(\mathbf{x}_{1:T}\vert \mathbf{x}_0)) &= log \frac{q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_{1:T}\vert \mathbf{x}_0)} \\
+        &= log \frac{q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)}{\frac{p_\theta(\mathbf{x}_0\vert\mathbf{x}_{1:T})p_\theta(\mathbf{x}_{1:T})}{p_\theta(\mathbf{x}_0)}} \\ 
+        &= log \frac{q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)}{\frac{p_\theta(\mathbf{x}_0, \mathbf{x}_{1:T})}{p_\theta(\mathbf{x}_0)}} \\
+        &= log \frac{q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)}{\frac{p_\theta(\mathbf{x}_{0:T})}{p_\theta(\mathbf{x}_0)}} \\
+        &= log \frac{q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_{0:T})} + log (p_\theta(\mathbf{x}_0))
+    \end{aligned}
+    $$
+    $$
+    \begin{aligned}
+        &\therefore - log(p_\theta(\mathbf{x}_0)) \leq - log(p_\theta(\mathbf{x}_0)) + D_{KL}(q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)\Vert p_\theta(\mathbf{x}_{1:T}\vert \mathbf{x}_0)) \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq - log(p_\theta(\mathbf{x}_0)) + log \frac{q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_{0:T})} + log (p_\theta(\mathbf{x}_0)) \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq log \frac{q(\mathbf{x}_{1:T}\vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_{0:T})} \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq log\bigg(\frac{\prod^T_{t = 1}q(\mathbf{x}_t\vert\mathbf{x}_{t - 1})}{p(\mathbf{x}_T)\prod^T_{t = 1}p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)}\bigg) \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq - log(p(\mathbf{x}_T)) + log\bigg(\frac{\prod^T_{t = 1}q(\mathbf{x}_t\vert\mathbf{x}_{t - 1})}{\prod^T_{t = 1}p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)}\bigg) \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq - log(p(\mathbf{x}_T)) + \sum^T_{t = 1}log\bigg(\frac{q(\mathbf{x}_t\vert\mathbf{x}_{t - 1})}{p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)}\bigg) \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq - log(p(\mathbf{x}_T)) + \sum^T_{t = 2}log\bigg(\frac{q(\mathbf{x}_t\vert\mathbf{x}_{t - 1})}{p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)}\bigg) + log\bigg(\frac{q(\mathbf{x}_1\vert\mathbf{x}_0)}{p_\theta(\mathbf{x}_0\vert\mathbf{x}_1)}\bigg) \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq - log(p(\mathbf{x}_T)) + \sum^T_{t = 2}log\bigg(\frac{q(\mathbf{x}_{t - 1}\vert\mathbf{x}_{t}, \mathbf{x}_0)q(\mathbf{x}_t\vert \mathbf{x}_0)}{p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)q(\mathbf{x}_{t - 1}\vert\mathbf{x}_0)}\bigg) + log\bigg(\frac{q(\mathbf{x}_1\vert\mathbf{x}_0)}{p_\theta(\mathbf{x}_0\vert\mathbf{x}_1)}\bigg) \\ 
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq - log(p(\mathbf{x}_T)) + \sum^T_{t = 2}log\bigg(\frac{q(\mathbf{x}_{t - 1}\vert\mathbf{x}_{t}, \mathbf{x}_0)}{p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)}\bigg) + \sum^T_{t = 2}log\bigg(\frac{q(\mathbf{x}_t\vert \mathbf{x}_0)}{q(\mathbf{x}_{t - 1}\vert\mathbf{x}_0)}\bigg) +log\bigg(\frac{q(\mathbf{x}_1\vert\mathbf{x}_0)}{p_\theta(\mathbf{x}_0\vert\mathbf{x}_1)}\bigg) \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq - log(p(\mathbf{x}_T)) + \sum^T_{t = 2}log\bigg(\frac{q(\mathbf{x}_{t - 1}\vert\mathbf{x}_{t}, \mathbf{x}_0)}{p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)}\bigg) +
+        log\bigg(\prod^T_{t = 1}\frac{q(\mathbf{x}_t\vert \mathbf{x}_0)}{q(\mathbf{x}_{t - 1}\vert\mathbf{x}_0)}\bigg) +log\bigg(\frac{q(\mathbf{x}_1\vert\mathbf{x}_0)}{p_\theta(\mathbf{x}_0\vert\mathbf{x}_1)}\bigg) \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq - log(p(\mathbf{x}_T)) + \sum^T_{t = 2}log\bigg(\frac{q(\mathbf{x}_{t - 1}\vert\mathbf{x}_{t}, \mathbf{x}_0)}{p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)}\bigg) +
+        log\bigg(\frac{\cancel{q(\mathbf{x}_2\vert \mathbf{x}_0)}\cancel{q(\mathbf{x}_3\vert \mathbf{x}_0)}\dots \cancel{q(\mathbf{x}_{T - 1}\vert \mathbf{x}_0)}q(\mathbf{x}_T\vert \mathbf{x}_0)}{q(\mathbf{x}_{1}\vert\mathbf{x}_0)\cancel{q(\mathbf{x}_{2}\vert\mathbf{x}_0)}\dots \cancel{q(\mathbf{x}_{T - 2}\vert\mathbf{x}_0)}\cancel{q(\mathbf{x}_{T - 1}\vert\mathbf{x}_0)}}\bigg) \\
+        &\quad\quad\quad\quad\quad\quad\quad\quad\quad+log\bigg(\frac{q(\mathbf{x}_1\vert\mathbf{x}_0)}{p_\theta(\mathbf{x}_0\vert\mathbf{x}_1)}\bigg) \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq - log(p(\mathbf{x}_T)) + \sum^T_{t = 2}log\bigg(\frac{q(\mathbf{x}_{t - 1}\vert\mathbf{x}_{t}, \mathbf{x}_0)}{p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)}\bigg) + log \bigg(\frac{q(\mathbf{x}_T\vert \mathbf{x}_0)}{q(\mathbf{x}_1\vert\mathbf{x}_0)}\bigg) + log\bigg(\frac{q(\mathbf{x}_1\vert\mathbf{x}_0)}{p_\theta(\mathbf{x}_0\vert\mathbf{x}_1)}\bigg) \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq - log(p(\mathbf{x}_T)) + \sum^T_{t = 2}log\bigg(\frac{q(\mathbf{x}_{t - 1}\vert\mathbf{x}_{t}, \mathbf{x}_0)}{p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)}\bigg) + log(q(\mathbf{x}_T\vert\mathbf{x}_0)) - log(q(\mathbf{x}_1\vert\mathbf{x}_0)) \\
+        &\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad +log(q(\mathbf{x}_1\vert\mathbf{x}_0)) - log(p_\theta(\mathbf{x}_0\vert\mathbf{x}_1)) \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq - log(p(\mathbf{x}_T)) + \sum^T_{t = 2}log\bigg(\frac{q(\mathbf{x}_{t - 1}\vert\mathbf{x}_{t}, \mathbf{x}_0)}{p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)}\bigg) + log(q(\mathbf{x}_T\vert\mathbf{x}_0)) - log(p_\theta(\mathbf{x}_0\vert\mathbf{x}_1)) \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq log\bigg(\frac{q(\mathbf{x}_T\vert\mathbf{x}_0)}{p(\mathbf{x}_T)}\bigg) + \sum^T_{t = 2}log\bigg(\frac{q(\mathbf{x}_{t - 1}\vert\mathbf{x}_{t}, \mathbf{x}_0)}{p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)}\bigg) - log(p_\theta(\mathbf{x}_0\vert\mathbf{x}_1)) \\
+        &\implies - log(p_\theta(\mathbf{x}_0)) \leq - log(p_\theta(\mathbf{x}_0\vert\mathbf{x}_1)) + \text{KL}(q(\mathbf{x}_T\vert \mathbf{x}_0)\Vert p(\mathbf{x}_T)) + \sum_{t=2}^{T}\text{KL}(q(\mathbf{x}_{t-1}\vert \mathbf{x}_t, \mathbf{x}_0)\Vert p_\theta(\mathbf{x}_{t-1}\vert \mathbf{x}_t))
+    \end{aligned}
+    $$
+    This is how we arrive at the variational lower bound of the negative log-likelihood,
+    $$
+    \begin{aligned}
+       \mathcal{L}_{vlb} = -log\text{ }p_\theta(x_0\vert x_1) + \text{KL}(q(x_T\vert x_0)\Vert p(x_T)) + \sum_{t=2}^{T}\text{KL}(q(x_{t-1}\vert x_t, x_0)\Vert p_\theta(x_{t-1}\vert x_t))
+    \end{aligned}
+    $$
+</p>
+<p style="text-align: justify;">
+    We can entirely disregard the second term because \(q\) lacks any trainable parameters; it merely represents a forward process that continuously 
+    introduces noise. Additionally, \(p(\mathbf{x}_T)\) comprises random noise samples from our Gaussian distribution. Moreover, based on the theory 
+    mentioned earlier, which asserts that \(q\) will converge to a normal distribution, we can confidently anticipate that the KL divergence will 
+    be minimal. Now, let us turn our attention to the other KL divergence term. As discussed earlier, \(p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)\) 
+    can be expressed as \(\mathcal{N}(x_{t - 1}, \mu_\theta(x_t, t), \Sigma_\theta(x_t, t))\). Ho et al. <strong style="color: blue;">[33]</strong> 
+    proposes to fix the variance schedule to a constant value. Therefore, \(p_\theta(\mathbf{x}_{t - 1}\vert\mathbf{x}_t)\) becomes \(\mathcal{N}(x_{t - 1}, \mu_\theta(x_t, t), \beta\mathbf{I})\).
+</p>
+<p style="text-align: justify;">
+    Now, we demonstrate that the posterior \(q(\mathbf{x}_{t-1}\vert \mathbf{x}_t, \mathbf{x}_0)\) is a Gaussian distribution, implying
+    closed-form expressions for the KL divergences. Using Bayes’ rule, we have:
+    $$
+    \begin{aligned}
+        q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0) &= \frac{q(\mathbf{x}_{t}\vert \mathbf{x}_{t - 1}, \mathbf{x}_0)q(\mathbf{x}_{t - 1}\vert \mathbf{x}_0)}{q(\mathbf{x}_t\vert \mathbf{x}_0)}
+    \end{aligned}
+    $$
+    ; where \(q(\mathbf{x}_{t}\vert \mathbf{x}_{t - 1}, \mathbf{x}_0)\) is our forward process and although it is conditioned on \(\mathbf{x}_0\) it is going to have no impact because our forward process is a Markov Chain. 
+    The other two terms can be written using the recursion that we established earlier which allows us to go from \(\mathbf{x}_0\) to a noisy image 
+    at any time step \(t\).
+    $$
+    \begin{aligned}
+        \therefore q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0) &= \frac{\mathcal{N}(\mathbf{x}_t; \sqrt{\alpha_t}\mathbf{x}_{t - 1}, (1 - \alpha_t)\mathbf{I}).\mathcal{N}(\mathbf{x}_{t - 1}; \sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0, (1 - \bar{\alpha}_{t - 1})\mathbf{I})}{\mathcal{N}(\mathbf{x}_t; \sqrt{\bar{\alpha}_t}\mathbf{x}_0, (1 - \bar{\alpha}_{t - 1})\mathbf{I})} \\
+        &\propto \exp \frac{-1}{2} \left[\frac{(\mathbf{x}_t - \sqrt{\alpha}_t\mathbf{x}_{t - 1})^2}{1 - \alpha_t} + \frac{(\mathbf{x}_{t - 1} - \sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0)^2}{1 - \bar{\alpha}_{t - 1}} + \frac{(\textbf{x}_t - \sqrt{\bar{\alpha}_t}\mathbf{x}_0)^2}{1 - \bar{\alpha_t}}\right] \\
+        &\propto \exp \frac{-1}{2} \left[\mathbf{x}^2_{t - 1}(\frac{\alpha_t}{1 - \alpha_t} + \frac{1}{1 - \bar{\alpha}_{t - 1}}) - 2\mathbf{x}_{t - 1}(\frac{\sqrt{\alpha}_t\mathbf{x}_t}{1 - \alpha_t} + \frac{\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{1 - \bar{\alpha}_{t - 1}}) + C(\mathbf{x}_t, \mathbf{x}_0)\right] \\ 
+        &\quad\text{;where } C(\mathbf{x}_t, \mathbf{x}_0) \text{ is some function not involving } \mathbf{x}_{t - 1}. \\
+        \implies q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0)&\propto \exp \frac{-1}{2} \biggl[\mathbf{x}^2_{t - 1}(\frac{\alpha_t - \bar{\alpha}_t + 1 - \alpha_t}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}) - 2\mathbf{x}_{t - 1}(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}) \\
+        &\quad\quad\quad+ C(\mathbf{x}_t, \mathbf{x}_0)\biggr] \\
+        &\propto \exp \frac{-1}{2} \biggl[\mathbf{x}^2_{t - 1}(\frac{1 - \bar{\alpha}_t}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}) - 2\mathbf{x}_{t - 1}(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}) \\
+        &\quad\quad\quad+ C(\mathbf{x}_t, \mathbf{x}_0)\biggr] \\
+        \implies q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0)&\propto \exp \frac{-1}{2}\Biggl[\frac{1 - \bar{\alpha}_t}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}\biggl\{\mathbf{x}^2_{t - 1} - 2\mathbf{x}_{t - 1}(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \bar{\alpha}_t)}) \\
+        &\quad\quad\quad+ \frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}C(\mathbf{x}_t, \mathbf{x}_0)\biggr\} \Biggr]
+    \end{aligned}
+    $$
+</p>
+<p style="text-align: justify;">
+Now, let us examine the terms free of \(\mathbf{x}_{t- 1}\) i.e., \(C(\mathbf{x}_t, \mathbf{x}_0)\):
+$$
+    \begin{aligned}
+        \frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}C(\mathbf{x}_t, \mathbf{x}_0) &= \frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}\biggl(\frac{\mathbf{x}^2_t}{1 - \alpha_t} + \frac{\bar{\alpha}^2_{t - 1}\mathbf{x}^2_0}{1 - \bar{\alpha}_{t - 1}} -\frac{\mathbf{x}^2_t}{1 - \bar{\alpha}_t} - \frac{\bar{\alpha}_t\mathbf{x}^2_0}{1 - \bar{\alpha}_t} + \frac{2\sqrt{\bar{\alpha}_t}\mathbf{x}_0\mathbf{x}_t}{1 - \bar{\alpha}_t}\biggr) \\
+        &= \mathbf{x}^2_t\frac{(1 - \bar{\alpha}_{t - 1})(1 - \bar{\alpha}_t) - (1 - \bar{\alpha}_{t - 1})(1 - \alpha_t)}{(1 - \bar{\alpha}_t)^2} \\ 
+        &+ \mathbf{x}^2_0\frac{\bar{\alpha}_{t - 1}(1 - \bar{\alpha}_t)(1 - \alpha_t) - \bar{\alpha}_t(1 - \bar{\alpha}_{t - 1})(1 - \alpha_t)}{(1 - \bar{\alpha}_t)^2} + \frac{2\sqrt{\bar{\alpha}_t}\mathbf{x}_0\mathbf{x}_t(1 - \bar{\alpha}_{t - 1})(1 - \alpha_t)}{(1 - \bar{\alpha}_t)^2} \\
+        &= \mathbf{x}^2_t\frac{(1 - \bar{\alpha}_{t - 1})^2\alpha_t}{(1 - \bar{\alpha}_t)^2} + \mathbf{x}^2_0\frac{(1 - \alpha_t)^2\bar{\alpha}_{t - 1}}{(1 - \bar{\alpha}_t)^2} + \frac{2\sqrt{{\alpha}_t}\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0\mathbf{x}_t(1 - \bar{\alpha}_{t - 1})(1 - \alpha_t)}{(1 - \bar{\alpha}_t)^2} \\
+    \end{aligned}
+$$
+$$
+    \begin{aligned}
+        \therefore\quad\quad\quad\frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}C(\mathbf{x}_t, \mathbf{x}_0) &= \Bigg(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \bar{\alpha}_t)}\Bigg)^2
+    \end{aligned}
+$$
+</p>
+<p style="text-align: justify;">
+        Now, we can rewrite \(q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0)\) as the following:
+        $$
+        \begin{aligned}
+            q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0) &\propto \exp \frac{-1}{2}\Biggl[\frac{1 - \bar{\alpha}_t}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}\biggl\{\mathbf{x}^2_{t - 1} - 2\mathbf{x}_{t - 1}(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \bar{\alpha}_t)}) \\
+            &\quad\quad\quad+ \frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}C(\mathbf{x}_t, \mathbf{x}_0)\biggr\} \Biggr] \\
+            & \propto \exp \frac{-1}{2}\Biggl[\frac{1 - \bar{\alpha}_t}{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}\biggl\{\mathbf{x}^2_{t - 1} - 2\mathbf{x}_{t - 1}(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \bar{\alpha}_t)}) \\
+            &\quad\quad\quad+ \bigg(\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \bar{\alpha}_t)}\bigg)^2\biggr\} \Biggr] \\
+            & \propto \exp \frac{-1}{2}\Biggl[\frac{1}{\frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}}\biggl\{\mathbf{x}_{t - 1} -\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{(1 - \bar{\alpha}_t)}\biggr\}^2 \Biggr]
+        \end{aligned}
+        $$
+        $$
+        \begin{aligned}
+            \therefore q(\mathbf{x}_{t - 1}\vert \mathbf{x}_t, \mathbf{x}_0) &= \mathcal{N}\Bigg(\mathbf{x}_{t - 1};\frac{(1 - \bar{\alpha}_{t - 1})\sqrt{\alpha}_t\mathbf{x}_t + (1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}\mathbf{x}_0}{1 - \bar{\alpha}_t}, \frac{(1 - \alpha_t)(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha_t}}\mathbf{I}\Bigg) \\
+            &= \mathcal{N}(\mathbf{x}_{t - 1}; \tilde{\mu}_t(\mathbf{x}_t, \mathbf{x}_0), \tilde{\beta}_t\mathbf{I})
+        \end{aligned}
+        $$
+</p>
+<p style="text-align: justify;">
+    Earlier we had derived that,
+    $$
+    \begin{aligned}
+        \mathbf{x}_t &= \sqrt{\bar{\alpha}_t}\textbf{x}_0 + \sqrt{1 - \bar{\alpha}_t}\epsilon \\
+        \implies \mathbf{x}_0 &= \frac{1}{\sqrt{\bar{\alpha}_t}}(\mathbf{x}_t - \sqrt{1 - \bar{\alpha}_t}\epsilon)
+    \end{aligned}
+    $$
+    By replacing \(\mathbf{x}_0\) with \(\frac{1}{\sqrt{\bar{\alpha}_t}}(\mathbf{x}_t - \sqrt{1 - \bar{\alpha}_t}\epsilon)\) in \(\tilde{\mu}_t(\mathbf{x}_t, \mathbf{x}_0)\), we can simplify it as,
+    $$
+    \begin{aligned}
+        \tilde{\mu}_t(\mathbf{x}_t, \mathbf{x}_0) &= \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}\mathbf{x}_t + \frac{(1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}}{1 - \bar{\alpha_t}}\mathbf{x}_0 \\
+        &= \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}\mathbf{x}_t + \frac{(1 - \alpha_t)\sqrt{\bar{\alpha}_{t - 1}}}{1 - \bar{\alpha_t}} \bigg(\frac{1}{\sqrt{\bar{\alpha}_t}}(\mathbf{x}_t - \sqrt{1 - \bar{\alpha}_t}\epsilon)\bigg)\\
+        &= \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t}\mathbf{x}_t + \frac{(1 - \alpha_t)}{(1 - \bar{\alpha}_t)\sqrt{\alpha_t}}\mathbf{x}_t - \frac{(1 - \alpha_t)\sqrt{(1 - \bar{\alpha}_t)}}{(1 - \bar{\alpha}_t)\sqrt{\alpha_t}}\epsilon \\
+        &= \bigg(\frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t - 1})}{1 - \bar{\alpha}_t} + \frac{(1 - \alpha_t)}{(1 - \bar{\alpha}_t)\sqrt{\alpha_t}}\bigg)\mathbf{x}_t - \frac{(1 - \alpha_t)\sqrt{(1 - \bar{\alpha}_t)}}{(1 - \bar{\alpha}_t)\sqrt{\alpha_t}}\epsilon \\
+        &= \bigg(\frac{\alpha_t(1 - \bar{\alpha}_{t - 1})}{(1 - \bar{\alpha}_t)\sqrt{\alpha_t}} + \frac{(1 - \alpha_t)}{(1 - \bar{\alpha}_t)\sqrt{\alpha_t}}\bigg)\mathbf{x}_t - \frac{(1 - \alpha_t)\sqrt{(1 - \bar{\alpha}_t)}}{(1 - \bar{\alpha}_t)\sqrt{\alpha_t}}\epsilon \\
+        &= \frac{\alpha_t - \bar{\alpha}_t + 1 - \alpha_t}{(1 - \bar{\alpha}_t)\sqrt{\alpha_t}}\mathbf{x}_t - \frac{(1 - \alpha_t)\sqrt{(1 - \bar{\alpha}_t)}}{(1 - \bar{\alpha}_t)\sqrt{\alpha_t}}\epsilon \\
+        &= \frac{1 - \bar{\alpha}_t}{(1 - \bar{\alpha}_t)\sqrt{\alpha_t}}\mathbf{x}_t - \frac{1 - \alpha_t}{\sqrt{(1 - \bar{\alpha}_t)}\sqrt{\alpha_t}}\epsilon \\
+        &= \frac{1}{\sqrt{\alpha_t}}\mathbf{x}_t - \frac{1 - \alpha_t}{\sqrt{(1 - \bar{\alpha}_t)}\sqrt{\alpha_t}}\epsilon \\
+        &= \frac{1}{\sqrt{\alpha_t}}\mathbf{x}_t - \frac{\beta_t}{\sqrt{(1 - \bar{\alpha}_t)}\sqrt{\alpha_t}}\epsilon \quad\quad\quad\bigg[\because \alpha_t = 1 - \beta_t\bigg]\\
+        &= \frac{1}{\sqrt{\alpha_t}}\bigg(\mathbf{x}_t - \frac{\beta_t}{\sqrt{(1 - \bar{\alpha}_t)}}\epsilon \bigg) 
+        \end{aligned}
+    $$
+    This shows that we are only subtracting random scaled noise from \(\mathbf{x}_t\). The authors decided to use a simple 
+    Mean Squared Error between \(\tilde{\mu}_t\) and \({\mu}_\theta\) that can be written as,
+    $$
+    \begin{aligned}
+        L_t &= \frac{1}{2\sigma^2_t}\Vert\tilde{\mu}_t(\mathbf{x}_t, \mathbf{x}_0) - {\mu}_\theta(\mathbf{x}_t, t))\Vert^2 \\
+        &= \frac{1}{2\sigma^2_t}\bigg\Vert\frac{1}{\sqrt{\alpha_t}}\bigg(\mathbf{x}_t - \frac{\beta_t}{\sqrt{(1 - \bar{\alpha}_t)}}\epsilon \bigg) - \frac{1}{\sqrt{\alpha_t}}\bigg(\mathbf{x}_t - \frac{\beta_t}{\sqrt{(1 - \bar{\alpha}_t)}}\epsilon_\theta(\mathbf{x}_t, t) \bigg) \bigg\Vert^2 \\
+        &= \frac{1}{2\sigma^2_t}\bigg\Vert \frac{\mathbf{x}_t}{\sqrt{\alpha}_t} - \frac{\beta_t}{\sqrt{\alpha}_t\sqrt{(1 - \bar{\alpha}_t)}}\epsilon - \frac{\mathbf{x}_t}{\sqrt{\alpha}_t} - \frac{\beta_t}{\sqrt{\alpha}_t\sqrt{(1 - \bar{\alpha}_t)}}\epsilon_\theta(\mathbf{x}_t, t) \bigg\Vert^2 \\
+        &= \frac{\beta^2_t}{2\sigma^2_t{\alpha}_t{(1 - \bar{\alpha}_t)}}\Vert\epsilon - \epsilon_\theta(\mathbf{x}_t, t)\Vert^2 \\
+    \end{aligned}
+    $$
+    This shows that the generative process is still defined by \(p_\theta(\mathbf{x}_{t - 1}|\mathbf{x}_t)\), but the neural network does 
+    not predict the mean and the variance directly. Instead, it is trained to predict the noise from the image. 
+</p>
+<p style="text-align: justify;">
+    According to Ho et al. <strong style="color: blue;">[33]</strong>, the diffusion model works better when we remove the scaling term \(\frac{\beta^2_t}{2\sigma^2_t{\alpha}_t{(1 - \bar{\alpha}_t)}}\). 
+    Hence we can rewrite the training loss term \(L_t\) as,
+    $$
+    \begin{aligned}
+        L_t &= \Vert\epsilon - \epsilon_\theta(\mathbf{x}_t, t)\Vert^2
+    \end{aligned}
+    $$
+</p>
+<p><br></p>
+</div>
+
+<div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+<strong style="font-size: x-large;">Text-to-Image Generation Using Diffusion Models</strong>
+<p style="text-align: justify;">
+    Vision-language models have garnered significant attention lately due to their numerous potential applications <strong style="color: blue;">[51]</strong>. 
+    Text-to-image generation involves creating an image based on descriptive text <strong style="color: blue;">[58]</strong>. Blended diffusion <strong style="color: blue;">[56]</strong>
+    combines pre-trained DDPM <strong style="color: blue;">[33]</strong> and CLIP <strong style="color: blue;">[51]</strong> models to propose a solution for region-based image 
+    editing, offering natural language guidance and versatility across various image types. Conversely, unCLIP 
+    (DALL-E 2) <strong style="color: blue;">[63]</strong> introduces a two-stage approach: a prior model generating a CLIP-based image embedding 
+    conditioned on a text caption, and a diffusion-based decoder producing an image based on the image embedding. 
+    Imagen <strong style="color: blue;">[66]</strong> presents a text-to-image diffusion model along with a comprehensive benchmark for performance assessment. 
+    It is shown to demonstrate competitive performance compared to existing methods like VQ-GAN+CLIP <strong style="color: blue;">[57]</strong>, 
+    Latent Diffusion Models <strong style="color: blue;">[62]</strong>, and DALL-E 2 <strong style="color: blue;">[63]</strong>. Inspired by the ability of guided 
+    diffusion models <strong style="color: blue;">[46, 60]</strong> to generate photo-realistic samples and the ability of 
+    text-to-image models to handle free-form prompts, GLIDE <strong style="color: blue;">[49]</strong> applies guided diffusion to the application of 
+    text-conditioned image synthesis. VQ-Diffusion <strong style="color: blue;">[59]</strong> introduces a vector-quantized diffusion model tailored for 
+    text-to-image generation, addressing unidirectional bias and preventing accumulative prediction error. Versatile Diffusion <strong style="color: blue;">[79]</strong> 
+    proposes the first unified multi-flow multimodal diffusion framework, which supports image-to-text, image-variation, text-to-image and 
+    text-variation. It can be further extended to other applications such as semantic-style disentanglement, image-text dual-guided generation, 
+    latent image-to-text-to-image editing and more. A promising new direction in diffusion model research involves utilizing pre-trained 
+    text-to-image diffusion models for more complex or fine-grained control of synthesis results. DreamBooth <strong style="color: blue;">[76]</strong> 
+    introduces the first technique addressing the challenging task of subject-driven generation. This approach allows users to recontextualize 
+    subjects, modify their properties and original art renditions based on just a few casually captured images of the subject.
+</p>
+<p><br></p>
+</div>
+
+<div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+<strong style="font-size: x-large;">Text-to-Video Generation Using Diffusion Models</strong>
+<p style="text-align: justify;">
+    Significant advancements in text-to-image diffusion-based generation have spurred interest in the development of text-to-video generation. 
+    Make-A-Video <strong style="color: blue;">[67]</strong> proposes an extension of diffusion-based text-to-image models to text-to-video through a spatio-temporally 
+    factorized diffusion model. By leveraging joint text-image priors, the need for paired text-video data is circumvented, with additional 
+    super-resolution strategies presented for high-definition, high frame-rate text-to-video generation. Imagen Video <strong style="color: blue;">[61]</strong> 
+    achieves high-definition video generation by employing cascaded video diffusion models and adapting successful strategies from 
+    text-to-image settings, such as using a frozen T5 text encoder <strong style="color: blue;">[36]</strong> and eliminating the need for classifiers. 
+    Tune-A-Video <strong style="color: blue;">[77]</strong> introduces one-shot video tuning for text-to-video generation, removing the requirement for extensive 
+    training with large-scale video datasets. It utilizes efficient attention tuning and structural inversion to enhance temporal 
+    consistency significantly. Text2Video-Zero <strong style="color: blue;">[73]</strong> accomplishes zero-shot text-to-video synthesis 
+    utilizing a pre-trained text-to-image diffusion model, ensuring temporal consistency through motion dynamics in latent codes 
+    and cross-frame attention. Its aim is to enable cost-effective text-guided video generation and editing without additional 
+    fine-tuning. FateZero <strong style="color: blue;">[75]</strong> introduces the first framework for temporal-consistent zero-shot text-to-video editing 
+    using a pre-trained text-to-image diffusion model. It merges attention maps in the DDIM <strong style="color: blue;">[39]</strong> inversion and 
+    generation processes to preserve motion and structure consistency optimally during editing.   
+</p>
+<p><br></p>
+</div>
+
+<div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+<strong style="font-size: x-large;">Scenario Generation</strong>
+<p style="text-align: justify;"> 
+    <strong>Deep Learning Models:</strong> In <strong style="color: blue;">[53]</strong> and <strong style="color: blue;">[41]</strong>, deep learning models are integrated into the 
+    generation process. Reference <strong style="color: blue;">[53]</strong> utilizes a Long Short-Term Memory (LSTM) <strong style="color: blue;">[5]</strong> module to 
+    generate the trajectory of surrounding vehicles and pedestrians by inputting the current state of the Autonomous Vehicle (AV) and a 
+    high-definition map. The model is trained with normal traffic data to produce naturalistic scenarios. On the other hand, <strong style="color: blue;">[41]</strong> 
+    proposes a sophisticated system for scenario generation in a simulator. This system employs a Convolutional Neural Network 
+    (CNN) <strong style="color: blue;">[19]</strong> as a selector to generate agents surrounding the AV. In TrafficSim <strong style="color: blue;">[52]</strong>, 
+    both Gated Recurrent Unit (GRU) and CNN are utilized to learn the behaviors of multi-agents from real-world data, enabling the 
+    generation of realistic multi-agent traffic scenarios. 
+</p>
+<p style="text-align: justify;">
+    <strong>Deep Generative Models:</strong> In <strong style="color: blue;">[71]</strong>, an auto-encoder structure is employed to independently 
+    generate vehicle initial positions and trajectories. Leveraging the capabilities of VAE <strong style="color: blue;">[15]</strong>, <strong style="color: blue;">[27]</strong> 
+    learns a latent space of encounter trajectories and generates novel scenarios by sampling from this space. However, due to limited 
+    understanding of the latent code, the generation process lacks control.
+</p>
+<p style="text-align: justify;">
+    In <strong style="color: blue;">[31]</strong>, the authors introduce CMTS, which combines normal and collision trajectories to generate safety-critical 
+    scenarios through interpolation in the latent space. Meanwhile, <strong style="color: blue;">[47]</strong> utilizes GANs and recurrent models 
+    to produce realistic highway lane change scenarios, leveraging real-world data in the discriminator to enhance generator performance.
+</p>
+<p style="text-align: justify;">
+    One of the advantages of Deep Generative Models lies in their ability to learn a low-dimensional latent space from high-dimensional 
+    and structured data using neural networks, facilitating the generation of complex sensing scenarios. SurfelGAN, proposed 
+    in <strong style="color: blue;">[42]</strong>, directly generates point cloud data representing scenarios from the AV's perspective. 
+    Reference <strong style="color: blue;">[45]</strong> augments collected driving videos by adding new vehicles to generate realistic video scenarios, 
+    incorporating motion planning considerations. Moreover, <strong style="color: blue;">[32]</strong> employs a GAN <strong style="color: blue;">[16]</strong> 
+    framework to generate traffic videos with multi-object scene synthesis, integrating physical conditions to enhance realism. 
+    Finally, <strong style="color: blue;">[29]</strong> designs a data-driven scenario simulator to generate both LiDAR and trajectory data, enhancing the 
+    diversity of driving scenarios.
+</p>
+<p style="text-align: justify;">
+    Efforts have recently been dedicated to generating driving scenarios using diffusion models. Scenario Diffusion <strong style="color: blue;">[74]</strong> is 
+    inspired by the understanding that the instantaneous position of each agent is closely tied to their behaviors. It integrates 
+    latent diffusion <strong style="color: blue;">[65]</strong>, object detection, and trajectory regression to produce oriented bounding boxes and trajectories 
+    simultaneously, offering a model of both the static placement of agents and their behaviors. Evaluation of Scenario Diffusion 
+    involves generating driving scenarios based solely on map data, as well as with additional conditioning tokens. Furthermore, an analysis 
+    of the model's generalization capabilities across different geographical regions demonstrates its ability to capture diverse traffic patterns 
+    effectively. The Scenario Diffusion model has two components. The first is an autoencoder, which projects complex driving scenarios into a 
+    more manageable representational space. The second component is the diffusion model. Like all diffusion models, Scenario Diffusion is trained 
+    by adding noise to real-world scenarios and asking the model to remove this noise. Once the model is trained, random noise is sampled and 
+    the model is used to gradually convert this noise into a realistic driving scenario.
+</p>
+<p style="text-align: justify;">
+    DiffScene <strong style="color: blue;">[78]</strong>, a diffusion-enabled generation framework, is able to generate safety-critical scenarios effectively 
+    while preserving its realism, satisfying real-world physical constraints. It is used to further evaluate and improve the safety and 
+    robustness of various AV algorithms. It leverages diffusion model to capture the low-density spaces in the distribution to generate 
+    realistic safety-critical scenarios efficiently. Then, a guided adversarial optimization process is employed to modify the generation 
+    results. During each diffusion step, the generated scenarios are constrained and optimized using 3 different 
+    objectives: \emph{safety-based objective, functionality-based objective, and constraint-based objective}. Most existing methods, 
+    like RELATE <strong style="color: blue;">[32]</strong> and STRIVE <strong style="color: blue;">[64]</strong> focus on only modeling the existing data distribution 
+    or applying scenario-specific rules. They fail to generate controllable rare events such as safety-critical scenarios efficiently. 
+    DiffScene tries to solve these challenges.
+</p>
+<p style="text-align: justify;">
+    Guo et al. <strong style="color: blue;">[72]</strong> present an innovative data-driven approach that employs stable diffusion model to address 
+    the task of safety-critical driving scenario generation. This work introduces a transformer encoder and region-guided cross attention 
+    used to provide coordinate guidance with the pre-trained diffusion model while best preserving its original generation ability. 
+    Moreover, a mask-aware adapter is also proposed which is specialized for dealing with mask condition to reduce edge artifacts. 
+    This mask-aware adapter is composed of a parameterized downsampling network and a feature pyramid network.
+</p>
+<p><br></p>
+</div>
+
+<div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+<strong style="font-size: x-large;">References</strong>
+<p style="text-align: justify;">[1] Merrill I Skolnik. “Introduction to radar”. In: Radar handbook 2 (1962), p. 21.</p>
+<p style="text-align: justify;">[2] Nadav Levanon. “Radar principles”. In: New York (1988).</p>
+<p style="text-align: justify;">[3] Dean A Pomerleau. “Alvinn: An autonomous land vehicle in a neural network”. In: Advances 
+    in neural information processing systems 1 (1988).</p>
+<p style="text-align: justify;">[4] Douglas W Gage. UGV history 101: A brief history of Unmanned Ground Vehicle (UGV)
+    development efforts. Naval Ocean Systems Center San Diego, CA, USA, 1995.</p>
+<p style="text-align: justify;">[5] Sepp Hochreiter and J¨urgen Schmidhuber. “Long short-term memory”. In: Neural computation
+    9.8 (1997), pp. 1735–1780.</p>
+<p style="text-align: justify;">[6] Robot car ”Stanley” designed by Stanford Racing Team. Tech. rep. Stanford University, 2005. url:
+    <a href="https://cs.stanford.edu/group/roadrunner/stanley.html"> https://cs.stanford.edu/group/roadrunner/stanley.html</a>.</p>
+<p style="text-align: justify;">[7] Sebastian Thrun et al. “Stanley: The robot that won the DARPA Grand Challenge”. In:
+    Journal of field Robotics 23.9 (2006), pp. 661–692.</p>
+<p style="text-align: justify;">[8] Martin Buehler, Karl Iagnemma, and Sanjiv Singh. The 2005 DARPA grand challenge: the
+    great robot race. Vol. 36. springer, 2007.</p>
+<p style="text-align: justify;">[9] DARPA Urban Challenge. Tech. rep. Defense Advanced Research Projects Agency, 2007. url:
+    <a href="https://www.darpa.mil/about-us/timeline/darpa-urban-challenge">https://www.darpa.mil/about-us/timeline/darpa-urban-challenge</a>.</p>
+<p style="text-align: justify;">[10] Chris Urmson et al. “Tartan racing: A multi-modal approach to the darpa urban challenge”.
+    In: (2007).</p>
+<p style="text-align: justify;">[11] Martin Buehler, Karl Iagnemma, and Sanjiv Singh. The DARPA urban challenge: autonomous
+    vehicles in city traffic. Vol. 56. Springer Science & Business Media, 2009.</p>
+<p style="text-align: justify;">[12] Brent Schwarz. “Mapping the world in 3D”. In: Nature Photonics 4.7 (2010), pp. 429–430.</p>
+<p style="text-align: justify;">[13] Pietro Cerri et al. “Computer vision at the hyundai autonomous challenge”. In: 2011 14th inter-
+    national IEEE conference on intelligent transportation systems (ITSC). IEEE. 2011, pp. 777–
+    783.</p>
+<p style="text-align: justify;">[14] Alberto Broggi et al. “The vislab intercontinental autonomous challenge: an extensive test for
+    a platoon of intelligent vehicles”. In: International Journal of Vehicle Autonomous Systems
+    10.3 (2012), pp. 147–164.</p>
+<p style="text-align: justify;">[15] Diederik P Kingma and Max Welling. “Auto-encoding variational bayes”. In: arXiv preprint
+    arXiv:1312.6114 (2013).</p>
+<p style="text-align: justify;">[16] Ian Goodfellow et al. “Generative adversarial nets”. In: Advances in neural information pro-
+    cessing systems 27 (2014).</p>
+<p style="text-align: justify;">[17] The DARPA Grand Challenge: Ten Years Later. Tech. rep. Defense Advanced Research Projects
+    Agency, Mar. 2014. url: <a href="//www.darpa.mil/news-events/2014-03-13">//www.darpa.mil/news-events/2014-03-13</a>.</p>
+<p style="text-align: justify;">[18] Alberto Broggi et al. “Proud—public road urban driverless-car test”. In: IEEE Transactions
+    on Intelligent Transportation Systems 16.6 (2015), pp. 3508–3519.</p>
+<p style="text-align: justify;">[19] Keiron O’shea and Ryan Nash. “An introduction to convolutional neural networks”. In: arXiv
+    preprint arXiv:1511.08458 (2015).</p>
+<p style="text-align: justify;">[20] Olaf Ronneberger, Philipp Fischer, and Thomas Brox. “U-net: Convolutional networks for
+    biomedical image segmentation”. In: Medical image computing and computer-assisted intervention–
+    MICCAI 2015: 18th international conference, Munich, Germany, October 5-9, 2015, proceed-
+    ings, part III 18. Springer. 2015, pp. 234–241.</p>
+<p style="text-align: justify;">[21] Santokh Singh. Critical reasons for crashes investigated in the national motor vehicle crash
+    causation survey. Tech. rep. 2015.</p>
+<p style="text-align: justify;">[22] Jascha Sohl-Dickstein et al. “Deep unsupervised learning using nonequilibrium thermodynam-
+    ics”. In: International conference on machine learning. PMLR. 2015, pp. 2256–2265.</p>
+<p style="text-align: justify;">[23] Cristofer Englund et al. “The grand cooperative driving challenge 2016: boosting the intro-
+    duction of cooperative automated vehicles”. In: IEEE Wireless Communications 23.4 (2016),
+    pp. 146–152.</p>
+<p style="text-align: justify;">[24] Fabian Kroger. “Automated driving in its social, historical and cultural contexts”. In: Au-
+    tonomous driving: Technical, legal and social aspects (2016), pp. 41–68.</p>
+<p style="text-align: justify;">[25] Autonomous vehicles to drive half of kilometres travelled in EU by 2030. Tech. rep. Consul-
+    tancy.eu, 2017. url: <a href="https://www.consultancy.eu/news/152/autonomous-vehicles-to-drive-half-of-kilometres-travelled-in-eu-by-2030">https://www.consultancy.eu/news/152/autonomous-vehicles-to-drive-half-of-kilometres-travelled-in-eu-by-2030</a>.</p>
+<p style="text-align: justify;">[26] Travis J Crayton and Benjamin Mason Meier. “Autonomous vehicles: Developing a public
+    health research agenda to frame the future of transportation policy”. In: Journal of Transport
+    & Health 6 (2017), pp. 245–252.</p>
+<p style="text-align: justify;">[27] Wenhao Ding, Wenshuo Wang, and Ding Zhao. “A new multi-vehicle trajectory generator to
+    simulate vehicle-to-vehicle encounters”. In: arXiv preprint arXiv:1809.05680 (2018).</p>
+<p style="text-align: justify;">[28] Simon Hecker, Dengxin Dai, and Luc Van Gool. “End-to-end learning of driving models with
+    surround-view cameras and route planners”. In: Proceedings of the european conference on
+    computer vision (eccv). 2018, pp. 435–453.</p>
+<p style="text-align: justify;">[29] Wei Li et al. “AADS: Augmented autonomous driving simulation using data-driven algo-
+    rithms”. In: Science robotics 4.28 (2019), eaaw0863.</p>
+<p style="text-align: justify;">[30] Yang Song and Stefano Ermon. “Generative modeling by estimating gradients of the data
+    distribution”. In: Advances in neural information processing systems 32 (2019).</p>
+<p style="text-align: justify;">[31] Wenhao Ding, Mengdi Xu, and Ding Zhao. “Cmts: A conditional multiple trajectory synthe-
+    sizer for generating safety-critical driving scenarios”. In: 2020 IEEE International Conference
+    on Robotics and Automation (ICRA). IEEE. 2020, pp. 4314–4321.</p>
+<p style="text-align: justify;">[32] S´ebastien Ehrhardt et al. “RELATE: Physically plausible multi-object scene synthesis using
+    structured latent spaces”. In: Advances in Neural Information Processing Systems 33 (2020),
+    pp. 11202–11213.</p>
+<p style="text-align: justify;">[33] Jonathan Ho, Ajay Jain, and Pieter Abbeel. “Denoising diffusion probabilistic models”. In:
+    Advances in neural information processing systems 33 (2020), pp. 6840–6851.</p>
+<p style="text-align: justify;">[34] Joel Janai et al. “Computer vision for autonomous vehicles: Problems, datasets and state
+    of the art”. In: Foundations and Trends® in Computer Graphics and Vision 12.1–3 (2020),
+    pp. 1–308.</p>
+<p style="text-align: justify;">[35] Sampo Kuutti et al. “A survey of deep learning applications to autonomous vehicle control”.
+    In: IEEE Transactions on Intelligent Transportation Systems 22.2 (2020), pp. 712–733.</p>
+<p style="text-align: justify;">[36] Colin Raffel et al. “Exploring the limits of transfer learning with a unified text-to-text trans-
+    former”. In: Journal of machine learning research 21.140 (2020), pp. 1–67.</p>
+<p style="text-align: justify;">[37] Stefan Riedmaier et al. “Survey on scenario-based safety assessment of automated vehicles”.
+    In: IEEE access 8 (2020), pp. 87456–87477.</p>
+<p style="text-align: justify;">[38] National Science, Technology Council (US), and United States. Department of Transportation.
+    Ensuring American Leadership in Automated Vehicle Technologies: Automated Vehicles 4.0.
+    United States Department of Transportation, 2020.</p>
+<p style="text-align: justify;">[39] Jiaming Song, Chenlin Meng, and Stefano Ermon. “Denoising diffusion implicit models”. In:
+    arXiv preprint arXiv:2010.02502 (2020)</p>
+<p style="text-align: justify;">[40] Yang Song et al. “Score-based generative modeling through stochastic differential equations”.
+    In: arXiv preprint arXiv:2011.13456 (2020).</p>
+<p style="text-align: justify;">[41] Mingyun Wen, Jisun Park, and Kyungeun Cho. “A scenario generation pipeline for autonomous
+    vehicle simulators”. In: Human-centric Computing and Information Sciences 10.1 (2020), p. 24.</p>
+<p style="text-align: justify;">[42] Zhenpei Yang et al. “Surfelgan: Synthesizing realistic sensor data for autonomous driving”.
+    In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition.
+    2020, pp. 11118–11127.</p>
+<p style="text-align: justify;">[43] Ekim Yurtsever et al. “A survey of autonomous driving: Common practices and emerging
+    technologies”. In: IEEE access 8 (2020), pp. 58443–58469.</p>
+<p style="text-align: justify;">[44] Claudine Badue et al. “Self-driving cars: A survey”. In: Expert systems with applications 165
+    (2021), p. 113816.</p>
+<p style="text-align: justify;">[45] Yun Chen et al. “Geosim: Realistic video simulation via geometry-aware composition for self-
+    driving”. In: Proceedings of the IEEE/CVF conference on computer vision and pattern recog-
+    nition. 2021, pp. 7230–7240.</p>
+<p style="text-align: justify;">[46] Prafulla Dhariwal and Alexander Nichol. “Diffusion models beat gans on image synthesis”. In:
+    Advances in neural information processing systems 34 (2021), pp. 8780–8794.</p>
+<p style="text-align: justify;">[47] Martin Hakansson and Joel Wall. “Driving scenario generation using generative adversarial
+    networks”. In: (2021).</p>
+<p style="text-align: justify;">[48] SAE International. Taxonomy and Definitions for Terms Related to Driving Automation Sys-
+    tems for On-Road Motor Vehicles. Tech. rep. 2021.</p>
+<p style="text-align: justify;">[49] Alex Nichol et al. “Glide: Towards photorealistic image generation and editing with text-guided
+    diffusion models”. In: arXiv preprint arXiv:2112.10741 (2021).</p>
+<p style="text-align: justify;">[50] Alexander Quinn Nichol and Prafulla Dhariwal. “Improved denoising diffusion probabilistic
+    models”. In: International conference on machine learning. PMLR. 2021, pp. 8162–8171.</p>
+<p style="text-align: justify;">[51] Alec Radford et al. “Learning transferable visual models from natural language supervision”.
+    In: International conference on machine learning. PMLR. 2021, pp. 8748–8763.</p>
+<p style="text-align: justify;">[52] Simon Suo et al. “Trafficsim: Learning to simulate realistic multi-agent behaviors”. In: Pro-
+    ceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2021,
+    pp. 10400–10409.</p>
+<p style="text-align: justify;">[53] Shuhan Tan et al. “Scenegen: Learning to generate realistic traffic scenes”. In: Proceedings of
+    the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2021, pp. 892–901.</p>
+<p style="text-align: justify;">[54] Lilian Weng. “What are diffusion models?” In: lilianweng.github.io (July 2021). url: <a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">https://lilianweng.github.io/posts/2021-07-11-diffusion-models/</a></p>
+<p style="text-align: justify;">[55] Ziyuan Zhong et al. “A survey on scenario-based testing for automated driving systems in
+    high-fidelity simulation”. In: arXiv preprint arXiv:2112.00964 (2021).</p>
+<p style="text-align: justify;">[56] Omri Avrahami, Dani Lischinski, and Ohad Fried. “Blended diffusion for text-driven editing
+    of natural images”. In: Proceedings of the IEEE/CVF Conference on Computer Vision and
+    Pattern Recognition. 2022, pp. 18208–18218.</p>
+<p style="text-align: justify;">[57] Katherine Crowson et al. “Vqgan-clip: Open domain image generation and editing with natural
+    language guidance”. In: European Conference on Computer Vision. Springer. 2022, pp. 88–105.</p>
+<p style="text-align: justify;">[58] Yifan Du et al. “A survey of vision-language pre-trained models”. In: arXiv preprint arXiv:2202.10936
+    (2022).</p>
+<p style="text-align: justify;">[59] Shuyang Gu et al. “Vector quantized diffusion model for text-to-image synthesis”. In: Pro-
+    ceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2022,
+    pp. 10696–10706.</p>
+<p style="text-align: justify;">[60] Jonathan Ho and Tim Salimans. “Classifier-free diffusion guidance”. In: arXiv preprint arXiv:2207.12598
+    (2022).</p>
+<p style="text-align: justify;">[61] Jonathan Ho et al. “Imagen video: High definition video generation with diffusion models”.
+    In: arXiv preprint arXiv:2210.02303 (2022).</p>
+<p style="text-align: justify;">[62] Cheng Lu et al. “Dpm-solver: A fast ode solver for diffusion probabilistic model sampling in
+    around 10 steps”. In: Advances in Neural Information Processing Systems 35 (2022), pp. 5775–
+    5787.</p>
+<p style="text-align: justify;">[63] Aditya Ramesh et al. “Hierarchical text-conditional image generation with clip latents”. In:
+    arXiv preprint arXiv:2204.06125 1.2 (2022), p. 3.</p>
+<p style="text-align: justify;">[64] Davis Rempe et al. “Generating useful accident-prone driving scenarios via a learned traf-
+    fic prior”. In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+    Recognition. 2022, pp. 17305–17315.</p>
+<p style="text-align: justify;">[65] Robin Rombach et al. “High-resolution image synthesis with latent diffusion models”. In:
+    Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2022,
+    pp. 10684–10695.</p>
+<p style="text-align: justify;">[66] Chitwan Saharia et al. “Photorealistic text-to-image diffusion models with deep language un-
+    derstanding”. In: Advances in neural information processing systems 35 (2022), pp. 36479–
+    36494.</p>
+<p style="text-align: justify;">[67] Uriel Singer et al. “Make-a-video: Text-to-video generation without text-video data”. In: arXiv
+    preprint arXiv:2209.14792 (2022).</p>
+<p style="text-align: justify;">[68] Florinel-Alin Croitoru et al. “Diffusion models in vision: A survey”. In: IEEE Transactions on
+    Pattern Analysis and Machine Intelligence (2023).</p>
+<p style="text-align: justify;">[69] Wenhao Ding et al. “A survey on safety-critical driving scenario generation—A methodological
+    perspective”. In: IEEE Transactions on Intelligent Transportation Systems (2023).</p>
+<p style="text-align: justify;">[70] Driverless cars – What the future holds. Tech. rep. McCready Law Injury Attorneys, Nov.
+    2023. url: <a href="https://mccreadylaw.com/blog/driverless-cars-future-holds/">https://mccreadylaw.com/blog/driverless-cars-future-holds/</a>.</p>
+<p style="text-align: justify;">[71] Lan Feng et al. “Trafficgen: Learning to generate diverse and realistic traffic scenarios”. In: 2023
+    IEEE International Conference on Robotics and Automation (ICRA). IEEE. 2023, pp. 3567–
+    3575.</p>
+<p style="text-align: justify;">[72] Zipeng Guo, Yuezhao Yu, and Chao Gou. “Controllable Diffusion Models for Safety-Critical
+    Driving Scenario Generation”. In: 2023 IEEE 35th International Conference on Tools with
+    Artificial Intelligence (ICTAI). IEEE. 2023, pp. 717–722.</p>
+<p style="text-align: justify;">[73] Levon Khachatryan et al. “Text2video-zero: Text-to-image diffusion models are zero-shot video
+    generators”. In: Proceedings of the IEEE/CVF International Conference on Computer Vision.
+    2023, pp. 15954–15964.</p>
+<p style="text-align: justify;">[74] Ethan Pronovost et al. “Scenario Diffusion: Controllable Driving Scenario Generation With
+    Diffusion”. In: Advances in Neural Information Processing Systems 36 (2023), pp. 68873–
+    68894.</p>
+<p style="text-align: justify;">[75] Chenyang Qi et al. “Fatezero: Fusing attentions for zero-shot text-based video editing”. In:
+    Proceedings of the IEEE/CVF International Conference on Computer Vision. 2023, pp. 15932–
+    15942.</p>
+<p style="text-align: justify;">[76] Nataniel Ruiz et al. “Dreambooth: Fine tuning text-to-image diffusion models for subject-
+    driven generation”. In: Proceedings of the IEEE/CVF Conference on Computer Vision and
+    Pattern Recognition. 2023, pp. 22500–22510.</p>
+<p style="text-align: justify;">[77] Jay Zhangjie Wu et al. “Tune-a-video: One-shot tuning of image diffusion models for text-to-
+    video generation”. In: Proceedings of the IEEE/CVF International Conference on Computer
+    Vision. 2023, pp. 7623–7633.</p>
+<p style="text-align: justify;">[78] Chejian Xu et al. “DiffScene: Diffusion-Based Safety-Critical Scenario Generation for Autonomous Vehicles”. In: The Second Workshop on New Frontiers in Adversarial Machine
+    Learning. 2023. url: <a href="https://openreview.net/forum?id=hclEbdHida">https://openreview.net/forum?id=hclEbdHida</a>.</p>
+<p style="text-align: justify;">[79] Xingqian Xu et al. “Versatile diffusion: Text, images and variations all in one diffusion model”.
+    In: Proceedings of the IEEE/CVF International Conference on Computer Vision. 2023, pp. 7754–
+    7765.</p>
+<p style="text-align: justify;">[80] Ling Yang et al. “Diffusion models: A comprehensive survey of methods and applications”. In:
+    ACM Computing Surveys 56.4 (2023), pp. 1–39.</p>
+<p style="text-align: justify;">[81] The 6 Levels of Vehicle Autonomy Explained. Tech. rep. Synopsys, 2024. url: <a href="https://www.synopsys.com/automotive/autonomous-driving-levels.html">https://www.synopsys.com/automotive/autonomous-driving-levels.html</a>.</p>
+<p style="text-align: justify;">[82] Vehicle Automation Symposium: Getting to SAE Level 4™. Tech. rep. SAE International, 2024.
+    url: <a href="https://www.sae.org/attend/vehicle-automation-symposium">https://www.sae.org/attend/vehicle-automation-symposium</a></p>
+<p style="text-align: justify;">[83] Christy Bieber. 93% Have Concerns About Self-Driving Cars According to New Forbes Legal
+    Survey. <a href="https://www.forbes.com/advisor/legal/auto-accident/perception-of-self-driving-cars/">https://www.forbes.com/advisor/legal/auto-accident/perception-of-self-driving-cars/</a>. Accessed: March 2024. February 13, 2024.</p>
+<p style="text-align: justify;">[84] Vaughn Cockayne. More than 90% of consumers have concerns over self-driving cars, sur-
+    vey finds. <a href="https://www.washingtontimes.com/news/2024/feb/6/more-than-90-of-consumers-have-concerns-over-self-/">https://www.washingtontimes.com/news/2024/feb/6/more-than-90-of-consumers-have-concerns-over-self-/</a>. Accessed: March 2024. February 6, 2024.</p>
+<p style="text-align: justify;">[85] A. Davies. Google’s Self-Driving Car Caused Its First Crash. <a href="https://www.wired.com/2016/02/googles-self-driving-car-may-caused-first-crash/">https://www.wired.com/2016/02/googles-self-driving-car-may-caused-first-crash/</a>. Accessed: March 2024.
+    February 29, 2016.</p>
+<p style="text-align: justify;">[86] Damon Lavrinc. This Is How Bad Self-Driving Cars Suck In The Rain. <a href="https://jalopnik.com/this-is-how-bad-self-driving-cars-suck-in-the-rain-1666268433">https://jalopnik.com/this-is-how-bad-self-driving-cars-suck-in-the-rain-1666268433</a>. Accessed:
+    March 2024. December 3, 2014.</p>
+<p style="text-align: justify;">[87] Sean O’Kane. Waymo recalls and updates robotaxi software after two cars crashed into the
+    same towed truck. <a href="https://techcrunch.com/2024/02/13/waymo-recall-crash-software-self-driving-cars/">https://techcrunch.com/2024/02/13/waymo-recall-crash-software-self-driving-cars/</a>. Accessed: March 2024. February 13, 2024.</p>
+<p style="text-align: justify;">[88] Reuters. Waymo robotaxi accident with San Francisco cyclist draws regulatory review. 
+    <a href="https://www.reuters.com/world/us/driverless-waymo-car-hits-cyclist-san-francisco-causes-minor-scratches-2024-02-07/">https://www.reuters.com/world/us/driverless-waymo-car-hits-cyclist-san-francisco-causes-minor-scratches-2024-02-07/</a>. Accessed: March 2024. February 8, 2024.</p>
+<p style="text-align: justify;">[89] David Shepardson. GM’s Cruise recalling 950 driverless cars after pedestrian dragged in crash.
+    <a href="https://www.reuters.com/business/autos-transportation/gms-cruise-recall-950-driverless-cars-after-accident-involving-pedestrian-2023-11-08/">https://www.reuters.com/business/autos-transportation/gms-cruise-recall-950-driverless-cars-after-accident-involving-pedestrian-2023-11-08/</a>. Accessed:
+    March 2024. November 8, 2023.</p>
+<p style="text-align: justify;">[90] Trisha Thadani. The final 11 seconds of a fatal Tesla Autopilot crash. 
+    <a href="https://www.washingtonpost.com/technology/interactive/2023/tesla-autopilot-crash-analysis/">https://www.washingtonpost.com/technology/interactive/2023/tesla-autopilot-crash-analysis/</a>. Accessed:
+    March 2024. October 6, 2023.</p>
+</div>
+
+
+</body>
+</html>
