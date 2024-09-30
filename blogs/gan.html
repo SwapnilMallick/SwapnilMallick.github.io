@@ -63,7 +63,7 @@
 <p>
 <figure style="text-align: center;">
 <img src="gan_architecture.png" alt="GAN Architecture" width=70% height="auto">
-    <figcaption><strong>Figure 1. </strong> of a generative adversarial network.</figcaption>
+    <figcaption><strong>Figure 1. </strong>Architecture of a generative adversarial network.</figcaption>
 </figure>
 </p>
 <p>
@@ -74,29 +74,136 @@
 <div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
 <strong style="font-size: x-large;">Training a GAN</strong>
 <p style="text-align: justify;">
-    
+    Since we have discussed the components of a GAN, let us now see how to train the two models. 
+    The authors of the paper use the following value function to optimize them,
+
+    $$
+    \begin{aligned}
+    \min_G \max_D V(D, G) 
+    & = \mathbb{E}_{x \sim p_{data}(x)} [\log D(x)] + \mathbb{E}_{z \sim p_z(z)} [\log(1 - D(G(z)))] \\
+    \end{aligned}
+    $$
+</p>
+
+<p style="text-align: justify;">
+    The discriminator improves by continuously trying to maximize this value function while the generator improves by trying 
+    to minimize the function, again acting as each other's adversaries in this minimax game. Thinking in terms of iterations, 
+    we update the discriminator by maximizing this objective starting from random initializations. Then with the updated 
+    discriminator, the generator tries to minimize this objective. Now with the updated generator, the discriminator again 
+    tries is to maximize this objective and this process keeps on repeating.
 </p>
 <p style="text-align: justify;">
+    Rather than trying to dissect this objective, let us see what is happening if we just train these models on the classification 
+    objectives that they have and that will give us a better understanding of this objective. At first, we look at the discriminator 
+    which is trying to learn how to classify the input images as real or fake. We could turn this into a binary classification 
+    task with the real images having ground truth label as one and fake images having ground truth label as zero and the network 
+    could predict the probability of a given image being real or not. Then we could train the discriminator with the ground 
+    truth labels and the predictions. The binary cross entropy loss can be written as follows,
+
+    $$
+    \begin{aligned} 
+    \operatorname{loss}_d & =-\left(\frac{1}{N} \sum_{i=1}^N y_i \log \left(p_i\right)+\left(1-y_i\right) \log \left(1-p_i\right)\right)
+    \end{aligned}
+    $$
+
+    ; where \(y_i\) is the ground truth label (either 0 or 1) and \(p_i\) is the prediction made by the discriminator (or the classifier) 
+    for the \(i^{th}\) input. Let us rewrite the the BCE loss term as following for the ease of our own understanding,
+
+    $$
+    \begin{aligned}
+        \operatorname{loss}_d & =-\left(\frac{1}{N} \sum_{i=1}^N y_i \log \left(D\left(\text {image}_i\right)\right)+\left(1-y_i\right) \log \left(1-D\left(\text {image}_i\right)\right)\right)
+    \end{aligned}
+    $$
+
+    Now since for real images the label \(y_i\) will be 1, hence only the first term will remain and the second will vanish 
+    because \((1 - y_i)\) will be 0. Similarly for fake images, only the second term would remain as \(y_i\) will be 0. So we 
+    can express the term as,
+
+    $$
+    \begin{aligned} 
+    \operatorname{loss}_d & =-\left(\frac{1}{N_{\text {real}}} \sum_i \log \left(D\left(x_i\right)\right)+\frac{1}{N_{\text {fake}}} \sum_i \log \left(1-D\left(G\left(z_i\right)\right)\right)\right)
+    \end{aligned}
+    $$
+
+    ; where \(x_i\) is an instance of real image and \(z_i\) is a random noise sample and \(G(z_i)\) is the fake image that the generator 
+    returns for that particular sample. 
+
+</p>
+<p style="text-align: justify;">
+    In order to make our discriminator (or classifier) better, we need to minimize our loss and write it as,
+
+    $$
+    \begin{aligned} 
+    \min\operatorname{loss}_d & =-\left(\frac{1}{N_{\text {real}}} \sum_i \log \left(D\left(x_i\right)\right)+\frac{1}{N_{\text {fake}}} \sum_i \log \left(1-D\left(G\left(z_i\right)\right)\right)\right)
+    \end{aligned}
+    $$
+
+    Instead of minimizing the loss, we can achieve the same thing by maximizing the negative of this loss term and rewrite it as,
+
+    $$
+    \begin{aligned} 
+    \max\operatorname{loss}_d & =\left(\frac{1}{N_{\text {real}}} \sum_i \log \left(D\left(x_i\right)\right)+\frac{1}{N_{\text {fake}}} \sum_i \log \left(1-D\left(G\left(z_i\right)\right)\right)\right)
+    \end{aligned}
+    $$
+
+    This is now exactly what our objective also does, with the only difference being that sum replaced by expectation. 
+    This is because we never have access to the entire distribution and only have access to certain number of samples from this 
+    data distribution. If we assume that the sampling process is according to the probability distribution, then training with 
+    the objective the authors mention and training with the binary cross entropy loss would be the same. 
+
+</p>
+<p style="text-align: justify;">
+    For the discriminator, we would simply be training it to give higher probabilities for real images and lower probabilities 
+    for fake images. So for the generator, we could say that since the generator is the adversary of the discriminator we must 
+    train it with the opposite objective. This means that since the discriminator maximizes this function generator must minimize 
+    it. But from the same classification perspective, we can also arrive at the following formulation,
+
+    $$
+    \begin{aligned}
+    \min_G \max_D V(D, G) 
+    & = \mathbb{E}_{x \sim p_{data}(x)} [\log D(x)] + \mathbb{E}_{z \sim p_z(z)} [\log(1 - D(G(z)))] \\
+    \end{aligned}
+    $$
+
+    The generator wants to minimize the probability of the  discriminator thinking that the generated sample is fake. 
+    If you would have to improve the discriminator, we would have minimized the binary cross entropy loss between fake label 
+    and the generated sample, BCE\((D(G(z)), 0)\). Hence for improving the generator, we can maximize BCE\((D(G(z)), 0)\) or minimize 
+    the negative of this term and and the first quantity \(\mathbb{E}_{x \sim p_{data}(x)} [\log D(x)]\) is doing nothing here 
+    because as far as optimizing the generator is concerned this is constant.
+</p>
+<p style="text-align: justify;">
+    Now we said that we want to minimize this objective for the generator and we saw that this is is equivalent to maximizing BCE\((D(G(z)), 0)\) 
+    which is the BCE loss with zero label for the discriminator output on generated sample. When you plot the \(log(1 - x)\) graph, you will 
+    see that in regions where the discriminator gives lower probabilities the gradient is very small in terms of absolute value. But at 
+    the start of the minimax game, the discriminator will indeed give very low probabilities for fake images because it will easily learn 
+    to distinguish between the real images and the fake nonsensical samples. This is actually when the generator will need to improve using 
+    the gradient of this loss but that becomes an issue because of the weaker gradients in this region. 
+</p>
+
+<p>
     <figure style="text-align: center;">
-        <img src="forward_process.png" alt="Diffusion Forward Process" width=70% height="auto">
-            <figcaption><strong>Figure 2.</strong> Change in data distribution in the forward diffusion process</figcaption>
+    <img src="log_1.png" alt="Log(1-x) plot" width=40% height="auto">
+        <figcaption><strong>Figure 2. </strong>Plot of log(1-x).</figcaption>
     </figure>
 </p>
+
 <p style="text-align: justify;">
-    
+    Instead, the authors optimize using the \(log(x)\) function. Two things to note regarding this are: first, minimizing \(log(1 - x)\) 
+    is same as maximizing \(log(x)\) in the 0 to 1 range which is what we are working with here and second, the gradient for the initial 
+    iterations where discriminator gives lower probability to the generated sample is now much stronger and of higher absolute value. 
+    Hence instead of minimizing \(\min_G \mathbb{E}_{z \sim p_z(z)} [\log(1 - D(G(z)))]\), it is better to have the generator 
+    maximize \( \max_G \mathbb{E}_{z \sim p_z(z)} [\log(D(G(z)))]\). This is again exactly the same as minimizing BCE but with label 
+    one for the discriminator output on generated sample. So ultimately instead of trying to minimize the likelihood of the discriminator 
+    predicting the generated sample as fake, we are trying to maximize the likelihood of the discriminator predicting the generated sample as real.
 </p>
-<p style="text-align: justify;">
-    
+
+<p>
+    <figure style="text-align: center;">
+    <img src="log_2.png" alt="Log(x) Plot" width=40% height="auto">
+        <figcaption><strong>Figure 3. </strong>Plot of log(x).</figcaption>
+    </figure>
 </p>
-<p style="text-align: justify;">
-    
-</p>
-<p style="text-align: justify;">
-    
-</p>
-<p style="text-align: justify;">
-    
-</p>
+
 <p>
     <br>
 </p>
