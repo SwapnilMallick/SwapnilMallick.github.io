@@ -43,9 +43,6 @@
     trained using the data which was the case in other existing generative models like, autoencoders. Instead, the philosophy here is 
     to use the power of the discriminative model as classifiers in order to train the generator.
 </p>
-<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
-    .
-</p>
 
 <p>
     <br>
@@ -54,16 +51,19 @@
 <div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
 <strong style="font-size: x-large;">Building Blocks of a GAN</strong>
 <p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
-    .
+    A GAN consists of two separate models: the generator and the discriminator.
+    <ul>
+        <li>A generator \(G\) outputs synthetic samples given a noise variable input \(z\). It is trained to capture the real data 
+            distribution so that its generative samples can be as real as possible.</li>
+        <li>A discriminator \(D\) estimates the probability of a given sample coming from the real dataset. It works as a critic and is 
+            optimized to tell the fake samples from the real ones.</li>
+    </ul>
 </p>
-<p style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;text-align: justify;">
-    .
-</p>
+
 <p>
 <figure>
-<img src="DDPM.png" alt="Denoising Diffusion Probabilistic Model" width=100% height="auto">
-    <figcaption><strong>Figure 1.</strong> Markov chain of forward (reverse) diffusion process of generating a sample by slowly adding (removing) noise. 
-        (Image source: Ho et al. 2020 <strong style="color: blue;">[33]</strong> with a few additional annotations)</figcaption>
+<img src="gan_architecture.png" alt="GAN Architecture" width=100% height="auto">
+    <figcaption>Architecture of a generative adversarial network.</figcaption>
 </figure>
 </p>
 <p>
