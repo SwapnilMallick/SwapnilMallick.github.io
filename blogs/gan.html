@@ -212,8 +212,119 @@
 <div style="width:100%;max-width:900px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
 <strong style="font-size: x-large;">Optimal Generator and Discriminator</strong>
 <p style="text-align: justify;">
+    The authors also prove the optimal point of this minimax game. Intuitively, what we desire is that the generated sample be exactly 
+    same as the real samples but when that happens the discriminator will be confused because it cannot distinguish between them so it 
+    will end up randomly classifying images as real or fake and will have 0.5 as the prediction probabilities.
+
+    $$
+        \text{Optimal Generator} \implies p_{data} = p_{generated} \\
+        \text{Optimal Discriminator} \implies D(x) = D(G(z)) = \frac{1}{2}  
+    $$
+
+    First let us rewrite the GAN objective below,
+
+    $$
+    \begin{aligned}
+    \min_G \max_D V(D, G) 
+    & = \mathbb{E}_{x \sim p_{data}(x)} [\log D(x)] + \mathbb{E}_{z \sim p_z(z)} [\log(1 - D(G(z)))] \\
+    \end{aligned}
+    $$
+
+    Now let us see if optimizing the GAN objective allows us to reach there. We will first try to find the optimal discriminator. 
+    When we take sample \(z\) from the normal distribution \(p(z)\) and feed it to the generator, it will return an image which we 
+    call \(G(z)\). Continuing this process for the entire distribution of noise samples will give us a distribution of images in 
+    the image space. Let us call this \(p_g(x)\). Generated images that are mappings of highly probable \(z\)'s in the normal distribution 
+    will have high probabilities in this \(p_g(x)\) distribution. Now let us go back to the objective and rewrite it as,
+
+    $$
+    \begin{aligned}
+    \min_G \max_D V(D, G) 
+    & = \mathbb{E}_{x \sim p_{data}(x)} [\log D(x)] + \mathbb{E}_{x \sim p_g(x)} [\log(1 - D(G(z)))] \\
+    \end{aligned}
+    $$
+
+    All we are doing here is changing the random variable from \(z\) to \(G(z)\) and hence for computing the expectation, 
+    instead of using \(p_z\), we are using the distribution of this new variable which is the distribution that we get by 
+    passing noise sample \(z\) through the generator which we have termed as \(p_g\). Now, we can rewrite the expression as,
+
+    $$
+    \begin{aligned} 
+    & \int_x p_{data}(x) \log (D(x))+\int_x p_g(x) \log (1-D(x)) \\ 
+    & = \int_x p_{data}(x) \log (D(x))+p_g(x) \log (1-D(x))
+    \end{aligned}
+    $$
+
+    Let, \(\tilde{x} = D(x), A=p_{data}(x), \text{and } B=p_g(x)\)
+
+</p>
+
+<p style="text-align: justify;">
+    Then by replacing these we get,
+
+    $$
+    \begin{aligned}
+        f(\tilde{x}) 
+        & = A log\tilde{x} + B log(1-\tilde{x}) \\
+        \frac{d f(\tilde{x})}{d \tilde{x}}
+        & = A \frac{1}{ln10} \frac{1}{\tilde{x}} - B \frac{1}{ln10} \frac{1}{1 - \tilde{x}} \\
+        & = \frac{1}{ln10} (\frac{A}{\tilde{x}} - \frac{B}{1-\tilde{x}}) \\
+        & = \frac{1}{ln10} \frac{A - (A + B)\tilde{x}}{\tilde{x} (1 - \tilde{x})} \\
+    \end{aligned}
+    $$
+
+    By setting \(\frac{d f(\tilde{x})}{d \tilde{x}} = 0\), we get the optimal discriminator,
+
+    $$
+    \begin{aligned}
+        D^*(x) = \tilde{x}^* = \frac{A}{A + B} = \frac{p_{data}(x)}{p_{data}(x) + p_g(x)} \in [0, 1]
+    \end{aligned}
+    $$
+
+    When \(p_{data}(x) = 0, D^*(x) = 0\) <br>
+    When \(p_{data}(x) >> p_g(x), D^*(x) = 1\) <br>
+    When \(p_{data}(x) \approx p_g(x), D^*(x) = \frac{1}{2}\)
+</p>
+
+<p style="text-align: justify;">
+When both the generator and discriminator are at optimal values, we have \(p_data(x) \approx p_g(x) and D^*(x) = \frac{1}{2}\). 
+In that case, the loss function becomes,
+
+$$
+    \begin{aligned}
+        &\int_x \bigg( p_{data}(x) \log(D^*(x)) + p_g (x) \log(1 - D^*(x)) \bigg) dx \\
+        &= \log \frac{1}{2} \int_x p_{data}(x) dx + \log \frac{1}{2} \int_x p_g(x) dx \\
+        &= -2\log2 \\
+        &= -\log4
+    \end{aligned}
+$$
+
+Now given this is what the optimal discriminator is, let us see what we get by trying to find the optimal generator once the 
+discriminator is the optimal one. In that case, the value function can be reduced as follows,
+
+$$
+    \begin{aligned}
+        &\int_x \bigg( p_{data}(x) \log(D^*(x)) + p_g (x) \log(1 - D^*(x)) \bigg) dx \\
+        &= \log 4-\log 4+\int p_{\text {data }}(x) \log \left(\frac{p_{\text {data }}(x)}{p_{\text {data }}(x)+p_g(x)}\right)+\int p_g(x) \log \left(\frac{p_g(x)}{p_{\text {data }}(x)+p_g(x)}\right) \\ 
+        &= -\log 4+\log 2+\log 2+\int p_{\text {data }}(x) \log \left(\frac{p_{\text {data }}(x)}{p_{\text {data }}(x)+p_g(x)}\right)+\int p_g(x) \log \left(\frac{p_g(x)}{p_{\text {data }}(x)+p_g(x)}\right) \\
+        &= -\log 4 + \int p_{\text {data }}(x) \log \left(\frac{p_{\text {data }}(x)}{p_{\text {data }}(x)+p_g(x)}\right)+\int p_g(x) \log \left(\frac{p_g(x)}{p_{\text {data }}(x)+p_g(x)}\right)+\int p_g(x) \log 2+\int p_{\text {data }}(x) \log 2 \\ 
+        &= -\log 4 + \int_x p_{\text {data }}(x) \log \left(2 \times \frac{p_{\text {data }}(x)}{p_{\text {data }} (x)+p_g(x)}\right)+\int_x p_g(x) \log \left(2 \times \frac{p_g(x)}{p_{\text {data }}(x)+p_g(x)}\right) \\ 
+        &= -\log 4 + \int_x p_{\text {data }}(x) \log \left(\frac{p_{\text {data }}(x)}{\frac{p_{\text {data }}(x)+p_g(x)}{2}}\right)+\int_x p_g(x) \log \left(\frac{p_g(x)}{\frac{p_{\text {data }}(x)+p_g(x)}{2}}\right) \\
+        &= -\log4+K L\left(p_{\text {data }} \| \frac{p_{\text {data }}+p_g}{2}\right)+K L\left(p_g \| \frac{p_{\text {data }}+p_g}{2}\right) \\
+        &= -\log4 + 2. JSD(p_{data} \parallel p_g) \quad \text{; where JSD is the Jansen-Shannon Divergence}
+    \end{aligned}
+$$
+
+When \(p_{data}(x) \approx p_g(x), JSD(p_{data} \parallel p_g) = 0\)
+
+<p style="text-align: justify;">
+    Therefore, we can see that the minimum point of this objective which is \(-log 4\) is indeed when \(p_{data}(x) \approx p_g(x)\). Hence 
+    our optimal generator, which we get by minimizing this objective till its global minima, will end up mimicking the data distribution 
+    through its generated outputs and our optimal discriminator \(D^*\) with will end up predicting for any image be it real or fake randomly 
+    with a probability value of 0.5
+</p>
     
 </p>
+
 <p><br></p>
 </div>
 
