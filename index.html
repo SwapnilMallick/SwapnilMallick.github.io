@@ -220,6 +220,26 @@
       <hr class="section-divider">
 
       <div class="project-card">
+        <papertitle>BrickRL: Reinforcement Learning for Automated Brick Placement</papertitle>
+        <ul>
+          <li>This study, conducted as a course project for EECE 571\_F at UBC, was an attempt to see whether standard Reinforcement Learning algorithms can be used to automate the process of brick placement along defined target lines</li>
+          <li>Developed a Gymnasium-style 2-D simulation environment used as the testbed for realizing the potential of Reinforcement Learning algorithms to learn correct brick placement policies</li>
+          <li>The simple 2-D grid world had a default dimension of 100 x 100, an inventory of bricks on the top-left corner with each brick having a dimension of 5 x 2</li>
+          <li>The target geometric shape along which the agent had to place the bricks was represented by the one or more straight lines</li>
+          <li>Ran experiments on three types of geometric target shapes - i. a horizontal line; ii. a vertical line; iii. an L-shaped target consisting of a horizontal and a vertical line</li>
+          <li>Trained standard RL algorithms - PPO, TRPO and A2C - in simulation to study whether the agent is able to interact with the environment and learn to place all the bricks from the inventory to the target locations along the target line(s)</li>
+          <li>Studies showed that none of the algorithms were able to learn correct and complete brick placement policies along any of the target shapes</li>
+          <li>Overall, A2C was found to attain the highest completion rates on each of the target wall types - 66.7% for horizontal, 75% for vertical and 60% for the L-shaped target</li>
+          <li>PPO performed reasonably on simpler targets achieving completion rates of 66.7% and 62.5% on the horizontal and vertical targets but failed in the L-shaped target achieving only a completion rate of 10%</li>
+          <li>TRPO performed poorly on all three targets achieving completion rates of 50%, 37.5% and 10% on horizontal, vertical and L-shaped targets respectively</li>
+        </ul>
+        <div class="project-links">
+          <a href="/papers/PROJECT_REPORT.pdf" target="_blank">Project Report</a>
+          <a href="https://github.com/SwapnilMallick/BRICK-ASSEMBLY-RL-2D" target="_blank">Code</a>
+        </div>
+      </div>
+
+      <div class="project-card">
         <papertitle>Analysing Twitter Data on Rhino Conservation using Natural Language Processing</papertitle>
         <ul>
           <li>This study, conducted as group project for CSCI 461 at USC, was designed to demonstrate the utility of social media data in monitoring public opinion regarding illegal rhino poaching and trade</li>
