@@ -335,6 +335,12 @@ section {
   border-top: 1px solid #e0ecf8;
   border-right: 1px solid #e0ecf8;
   border-bottom: 1px solid #e0ecf8;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.research-entry:hover {
+  box-shadow: 0 6px 20px rgba(23, 114, 208, 0.12);
+  transform: translateY(-1px);
 }
 
 .research-logo {
