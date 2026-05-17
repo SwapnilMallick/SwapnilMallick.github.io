@@ -286,6 +286,7 @@ section {
   gap: 20px;
   justify-content: space-around;
   flex-wrap: wrap;
+  transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .education-item {
@@ -296,10 +297,10 @@ section {
   background: #f8fbff;
   border-radius: 10px;
   border: 1px solid #e0ecf8;
-  transition: box-shadow 0.2s, transform 0.2s;
+  
 }
 
-.education-item:hover {
+.education-grid:hover {
   box-shadow: 0 6px 20px rgba(23, 114, 208, 0.12);
   transform: translateY(-1px);
 }
